@@ -470,13 +470,13 @@ export function HeroSection() {
         />
 
         <div className="relative z-20 mx-auto flex min-h-[calc(100vh-72px)] flex-col items-center justify-start px-1 pb-8 pt-[42vh] text-center sm:pt-[44vh] lg:justify-end lg:px-0 lg:pt-0">
-          <h1 className="text-4xl font-extrabold leading-none text-white sm:text-5xl lg:text-6xl">
+          <h1 className="text-xl font-bold leading-none text-white sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
             One Platform.
             <span className="mt-[4px] block opacity-60">
               Endless Opportunities.
             </span>
           </h1>
-          <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-[#8d8d8d] sm:text-lg">
+          <p className="mt-4 max-w-[400px] xl:max-w-2xl text-base font-medium leading-relaxed text-[#8d8d8d] sm:text-lg">
             A dynamic platform where professionals find opportunities, promote
             their skills, provide and hire services, and grow through valuable
             connections.
