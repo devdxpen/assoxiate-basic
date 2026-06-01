@@ -402,7 +402,7 @@ export function HeroSection() {
           />
         </div>
 
-        <div className="absolute bottom-[20.7%] left-[5.1%] z-20 hidden lg:block">
+        <div className="absolute bottom-[40.7%] left-[5.1%] z-20 hidden lg:block">
           <FeatureCard
             ref={servicesRef}
             title="Services"
@@ -411,7 +411,7 @@ export function HeroSection() {
           />
         </div>
 
-        <div className="absolute bottom-[16.1%] right-[4%] z-20 hidden lg:block">
+        <div className="absolute bottom-[30.1%] right-[4%] z-20 hidden lg:block">
           <FeatureCard
             ref={solutionsRef}
             title="Solutions"
@@ -476,7 +476,7 @@ export function HeroSection() {
               Endless Opportunities.
             </span>
           </h1>
-          <p className="mt-4 max-w-[400px] xl:max-w-2xl text-base font-medium text-gray-300 lg:text-lg">
+          <p className="mt-4 max-w-2xl text-xs md:text-sm text-gray-300 lg:text-lg">
             A dynamic platform where professionals find opportunities, promote
             their skills, provide and hire services, and grow through valuable
             connections.
