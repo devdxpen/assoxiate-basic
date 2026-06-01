@@ -476,7 +476,7 @@ export function HeroSection() {
               Endless Opportunities.
             </span>
           </h1>
-          <p className="mt-4 max-w-[400px] xl:max-w-2xl text-base font-medium leading-relaxed text-[#8d8d8d] sm:text-lg">
+          <p className="mt-4 max-w-[400px] xl:max-w-2xl text-base font-medium text-gray-300 lg:text-lg">
             A dynamic platform where professionals find opportunities, promote
             their skills, provide and hire services, and grow through valuable
             connections.
