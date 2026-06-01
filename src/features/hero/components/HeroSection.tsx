@@ -469,10 +469,10 @@ export function HeroSection() {
           toRef={planetRef}
         />
 
-        <div className="relative z-20 mx-auto flex min-h-[calc(100vh-72px)] flex-col items-center justify-start px-1 pb-8 pt-[42vh] text-center sm:pt-[44vh] lg:justify-end lg:px-0 lg:pb-[7.9vh] lg:pt-0">
-          <h1 className="max-w-2xl text-4xl font-extrabold leading-none text-white sm:text-6xl lg:text-7xl">
+        <div className="relative z-20 mx-auto flex min-h-[calc(100vh-72px)] flex-col items-center justify-start px-1 pb-8 pt-[42vh] text-center sm:pt-[44vh] lg:justify-end lg:px-0 lg:pt-0">
+          <h1 className="text-4xl font-extrabold leading-none text-white sm:text-5xl lg:text-6xl">
             One Platform.
-            <span className="mt-[4px] block text-[#4b4b4b]">
+            <span className="mt-[4px] block opacity-60">
               Endless Opportunities.
             </span>
           </h1>
