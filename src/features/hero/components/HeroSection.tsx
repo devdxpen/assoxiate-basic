@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Globe } from "@/components/ui/globe";
+import { Globe } from "@/components/globe";
 import { cn } from "@/lib/utils";
 import type { COBEOptions } from "cobe";
 import {
@@ -339,14 +339,12 @@ export function HeroSection() {
         <div className="flex items-center gap-[10px]">
           <Button
             variant="outline"
-            size="default"
-            className="hidden border-white/15 bg-black px-5 text-sm font-bold text-white hover:border-white/28 hover:bg-white/[0.04] sm:inline-flex"
+            className="hidden sm:inline-flex"
           >
             Sign In
           </Button>
           <Button
-            size="default"
-            className="min-w-[114px] bg-white px-4 text-sm font-extrabold text-black shadow-[0_0_18px_rgba(255,255,255,0.12)] hover:bg-[#ededed]"
+            className="min-w-[114px] shadow-[0_0_18px_rgba(255,255,255,0.12)]"
           >
             Join Now
             <ArrowRight className="size-[13px]" strokeWidth={2.5} />
