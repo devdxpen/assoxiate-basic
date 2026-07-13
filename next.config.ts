@@ -10,11 +10,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-<<<<<<< HEAD
-};
-
-export default nextConfig;
-=======
   experimental: {
     preloadEntriesOnStart: false,
   },
@@ -22,4 +17,3 @@ export default nextConfig;
 
 export default nextConfig;
 
->>>>>>> dc0db1e61bdf7e9034fb64da12a071622db78145

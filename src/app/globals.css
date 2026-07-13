@@ -1,10 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-<<<<<<< HEAD
-@import "shadcn/tailwind.css";
-=======
-
->>>>>>> dc0db1e61bdf7e9034fb64da12a071622db78145
 
 @custom-variant dark (&:is(.dark *));
 
@@ -85,8 +80,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-<<<<<<< HEAD
-=======
   --hu-font-geist: var(--font-geist);
   --hu-font-jetbrains: var(--font-jetbrains-mono);
   --radius: 0.8rem;
@@ -110,7 +103,6 @@
   --hu-ring: 0, 0%, 71%;
   --color-fd-background: hsl(var(--hu-background));
   --color-fd-card: hsl(var(--hu-background));
->>>>>>> dc0db1e61bdf7e9034fb64da12a071622db78145
 }
 
 .dark {
@@ -145,8 +137,6 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-<<<<<<< HEAD
-=======
   --hu-background: 0, 0%, 7%;
   --hu-foreground: 0, 0%, 100%;
   --hu-card: 0, 0%, 9%;
@@ -166,7 +156,6 @@
   --hu-ring: 0, 0%, 56%;
   --color-fd-background: hsl(var(--hu-background));
   --color-fd-card: hsl(var(--hu-background));
->>>>>>> dc0db1e61bdf7e9034fb64da12a071622db78145
 }
 
 @layer base {
@@ -247,9 +236,6 @@
     stroke-dashoffset: 0;
   }
 }
-<<<<<<< HEAD
-=======
 .container-custom {
   @apply mx-auto px-5 sm:px-8 lg:px-64 w-full;
 }
->>>>>>> dc0db1e61bdf7e9034fb64da12a071622db78145
