@@ -53,7 +53,7 @@ export function JobsSection() {
           {jobCategories.map((category) => (
             <div
               key={category.name}
-              className="group relative rounded-xl bg-gray-950 p-7"
+              className="group relative rounded-xl bg-gray-950 border border-gray-800 p-7"
             >
                <GlowingEffect
                   spread={40}

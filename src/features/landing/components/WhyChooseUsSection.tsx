@@ -11,6 +11,13 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { CardContainer, CardBody, CardItem } from "@/components/3d/3DCard.component";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
 const features = [
   {
@@ -75,29 +82,35 @@ export function WhyChooseUsSection() {
             <CardContainer
               key={index}
               containerClassName="h-full"
-              className="group rounded-xl border border-gray-800 bg-gray-950 p-7 h-full"
+              className="group h-full"
             >
-              <CardBody className="flex flex-col justify-start h-full w-full">
-                <CardItem
-                  translateZ={30}
-                  className="mb-5 flex size-16 items-center justify-center rounded-xl border text-white"
-                >
-                  {feature.icon}
-                </CardItem>
-                <CardItem
-                  translateZ={50}
-                  as="h3"
-                  className="mb-2 text-2xl font-medium text-white block w-full"
-                >
-                  {feature.title}
-                </CardItem>
-                <CardItem
-                  translateZ={40}
-                  as="p"
-                  className="text-lg text-gray-400 block w-full mt-2"
-                >
-                  {feature.description}
-                </CardItem>
+              <CardBody className="h-full w-full">
+                <Card className="h-full border-gray-800 bg-gray-950 p-7 flex flex-col justify-start gap-0 [transform-style:preserve-3d]">
+                  <CardHeader className="p-0 mb-5 [transform-style:preserve-3d]">
+                    <CardItem
+                      translateZ={30}
+                      className="flex size-16 items-center justify-center rounded-xl border border-gray-800 bg-gray-900/50 text-white"
+                    >
+                      {feature.icon}
+                    </CardItem>
+                  </CardHeader>
+                  <CardContent className="p-0 flex flex-col gap-2 [transform-style:preserve-3d]">
+                    <CardItem
+                      translateZ={50}
+                      as={CardTitle}
+                      className="text-2xl font-medium text-white block w-full"
+                    >
+                      {feature.title}
+                    </CardItem>
+                    <CardItem
+                      translateZ={40}
+                      as={CardDescription}
+                      className="text-lg text-gray-400 block w-full"
+                    >
+                      {feature.description}
+                    </CardItem>
+                  </CardContent>
+                </Card>
               </CardBody>
             </CardContainer>
           ))}
