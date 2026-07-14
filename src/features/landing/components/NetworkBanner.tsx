@@ -73,7 +73,7 @@ export function NetworkBanner() {
                   <div className="pt-0.5 pointer-events-none">
                     <Checkbox
                       checked={checkedStates[index]}
-                      size="lg"
+                      className="size-5"
                     />
                   </div>
                   <span className="text-lg text-gray-400">{item}</span>
