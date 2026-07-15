@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function BrandMark() {
   return (
-    <Link href="/" className="flex items-center gap-2.5 transition hover:opacity-90">
+    <Link href="/">
       <Image
         src="/logo.png"
         alt="AssoXiate Logo"
