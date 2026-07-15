@@ -1,26 +1,21 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
 function BrandMark() {
   return (
-    <div className="flex items-center gap-2.5">
-      <svg
-        className="size-7 text-white"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M4 2h4l8 20h-4z" />
-        <path d="M20 2h-4L8 22h4z" />
-      </svg>
-      <div>
-        <div className="text-lg font-bold leading-none text-white tracking-wide">
-          AssoXiate
-        </div>
-      </div>
-    </div>
+    <Link href="/" className="flex items-center gap-2.5 transition hover:opacity-90">
+      <Image
+        src="/logo.png"
+        alt="AssoXiate Logo"
+        width={153}
+        height={40}
+        className="h-10 w-auto object-contain"
+        priority
+      />
+    </Link>
   );
 }
 
