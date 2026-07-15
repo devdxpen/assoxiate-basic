@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 import { Mail, Phone } from "lucide-react";
 
 const socialLinks = [
@@ -102,26 +103,7 @@ export function Footer() {
       <div className="container-custom">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 pb-6">
           <div className="flex flex-col items-start">
-            <div className="flex items-center gap-2.5">
-              <svg
-                className="size-7 text-white"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Stylized X Logo Mark */}
-                <path d="M4 2h4l8 20h-4z" />
-                <path d="M20 2h-4L8 22h4z" />
-              </svg>
-              <div>
-                <div className="text-lg font-bold leading-none text-white tracking-wide">
-                  AssoXiate
-                </div>
-                <div className="mt-1 text-base font-bold uppercase tracking-wider text-gray-500">
-                  PURE PROFESSIONAL
-                </div>
-              </div>
-            </div>
+            <BrandMark />
             
             <div className="flex gap-2.5 mt-6">
               {socialLinks.map((social, i) => (
