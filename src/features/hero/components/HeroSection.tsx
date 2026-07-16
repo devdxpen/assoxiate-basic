@@ -115,22 +115,6 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 bg-black/80 z-0" />
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="stars-layer absolute inset-0" />
-        <ShootingStars
-          starColor="#99A1AF"
-          trailColor="#374151"
-          minSpeed={15}
-          maxSpeed={35}
-          minDelay={2500}
-          maxDelay={5500}
-        />
-        <ShootingStars
-          starColor="#94A3B8"
-          trailColor="#0F172A"
-          minSpeed={20}
-          maxSpeed={40}
-          minDelay={3000}
-          maxDelay={7000}
-        />
       </div>
 
       {/* Hero Content Container */}
