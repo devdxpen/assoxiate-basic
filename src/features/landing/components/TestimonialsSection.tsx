@@ -36,14 +36,21 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <AnimatedSection className="relative overflow-hidden bg-black py-20 lg:py-28">
+    <div className="relative overflow-hidden bg-black py-20 lg:py-28">
       <div className="container-custom">
-        <h2 className="text-4xl font-medium text-white sm:text-5xl">What our users say</h2>
+        <h2 className="text-4xl font-medium text-white sm:text-5xl">
+          What our users say
+        </h2>
         <p className="mt-4 text-lg font-medium text-gray-400 mb-8">
-          Hear from professionals who have found success and connections on our platform
+          Hear from professionals who have found success and connections on our
+          platform
         </p>
-        <AnimatedTestimonials testimonials={testimonials} autoplay={true} className="py-10 px-0 max-w-full" />
+        <AnimatedTestimonials
+          testimonials={testimonials}
+          autoplay={true}
+          className="py-10 px-0 max-w-full"
+        />
       </div>
-    </AnimatedSection>
+    </div>
   );
 }

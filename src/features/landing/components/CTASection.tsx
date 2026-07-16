@@ -8,14 +8,14 @@ import LiquidMetal from "@/components/ui/liquid-metal";
 
 export function CTASection() {
   return (
-    <AnimatedSection className="relative overflow-hidden bg-black py-20 lg:py-28">
+    <AnimatedSection className="relative overflow-hidden bg-white py-20 lg:py-28">
       <div className="container-custom">
-        <div className="relative overflow-hidden rounded-xl border border-gray-700 bg-gray-950 shadow-md">
-          <div className="absolute inset-0 pointer-events-none opacity-40 z-0">
-            <Suspense fallback={<div className="size-full bg-gray-950" />}>
+        <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-md">
+          <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
+            <Suspense fallback={<div className="size-full bg-gray-50" />}>
               <LiquidMetal
-                colorBack="#030712"
-                colorTint="#99A1AF"
+                colorBack="#f9fafb"
+                colorTint="#6b7280"
                 shape="none"
                 speed={0.5}
                 scale={1}
@@ -31,17 +31,15 @@ export function CTASection() {
             </Suspense>
           </div>
           <div className="relative flex flex-col items-center gap-6 px-8 py-16 text-center sm:px-12 sm:py-20 lg:py-24 z-10">
-            <h2 className="text-4xl font-medium text-white sm:text-5xl">
+            <h2 className="text-4xl font-medium text-gray-900 sm:text-5xl">
               Ready to transform your
               <span className="mt-1 block">professional journey?</span>
             </h2>
-            <p className="max-w-2xl text-sm sm:text-base leading-relaxed text-gray-400">
-              Join thousands of professionals who are already growing their careers, businesses, and networks on Assxiate.
+            <p className="max-w-2xl text-sm sm:text-base leading-relaxed text-gray-500">
+              Join thousands of professionals who are already growing their
+              careers, businesses, and networks on Assxiate.
             </p>
-            <Button
-              size="lg"
-              className="mt-4"
-            >
+            <Button size="lg" variant="secondary" className="mt-4">
               Join Now — It&apos;s Free
               <ArrowRight className="size-4 ml-1.5" strokeWidth={2.6} />
             </Button>

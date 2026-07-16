@@ -40,14 +40,14 @@ const articles = [
 
 export function ArticlesSection() {
   return (
-    <AnimatedSection className="relative overflow-hidden bg-black py-20 lg:py-28">
+    <AnimatedSection className="relative overflow-hidden bg-white py-20 lg:py-28">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-gray-400">
+            <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
               Articles
             </span>
-            <h2 className="mt-3 text-4xl font-medium text-white sm:text-5xl">
+            <h2 className="mt-3 text-4xl font-medium text-gray-900 sm:text-5xl">
               Stay updated with the latest trends, insights, tips, and professional development content.
             </h2>
           </div>
@@ -65,7 +65,7 @@ export function ArticlesSection() {
           {articles.map((article, index) => (
             <div
               key={index}
-              className="group overflow-hidden rounded-xl border border-gray-700 bg-gray-950 transition-all duration-300 hover:border-gray-500 hover:bg-gray-900"
+              className="group overflow-hidden rounded-xl border border-gray-200 bg-gray-50 transition-all duration-300 hover:border-gray-300 hover:bg-white"
             >
               <div className="relative h-48 overflow-hidden">
                 <Image
@@ -75,27 +75,27 @@ export function ArticlesSection() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 
                 {/* Category Badge */}
-                <span className="absolute left-4 top-4 rounded bg-slate-700 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-gray-400">
+                <span className="absolute left-4 top-4 rounded bg-white/90 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-gray-600">
                   {article.category}
                 </span>
               </div>
               <div className="p-5">
-                <h3 className="mb-2 text-2xl font-bold leading-snug text-white transition-colors group-hover:text-slate-400">
+                <h3 className="mb-2 text-2xl font-bold leading-snug text-gray-900 transition-colors group-hover:text-gray-600">
                   {article.title}
                 </h3>
-                <p className="mb-5 text-sm leading-relaxed text-gray-400">
+                <p className="mb-5 text-sm leading-relaxed text-gray-500">
                   {article.excerpt}
                 </p>
-                <div className="flex items-center justify-between border-t border-gray-700 pt-4 text-xs text-gray-400">
-                  <span className="flex items-center gap-1.5 font-semibold text-gray-400">
-                    <Clock className="size-4 text-gray-500" />
+                <div className="flex items-center justify-between border-t border-gray-200 pt-4 text-xs text-gray-500">
+                  <span className="flex items-center gap-1.5 font-semibold text-gray-500">
+                    <Clock className="size-4 text-gray-400" />
                     {article.readTime}
                   </span>
-                  <span className="flex items-center gap-1.5 font-semibold text-gray-400">
-                    <Calendar className="size-4 text-gray-500" />
+                  <span className="flex items-center gap-1.5 font-semibold text-gray-500">
+                    <Calendar className="size-4 text-gray-400" />
                     {article.date}
                   </span>
                 </div>

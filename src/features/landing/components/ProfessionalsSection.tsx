@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 function MockupStep1() {
   const [text, setText] = useState("");
-  const [step, setStep] = useState(0); 
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     const fullText = "Looking for a Next.js Expert...";
@@ -45,22 +45,24 @@ function MockupStep1() {
   }, [step]);
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-2xl backdrop-blur-md">
-      <div className="flex items-center justify-between border-b border-gray-800/60 pb-3 mb-4">
+    <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-5 shadow-xl">
+      <div className="flex items-center justify-between border-b border-gray-200 pb-3 mb-4">
         <div className="flex items-center gap-2">
-          <span className="size-2.5 rounded-full bg-red-500/80" />
-          <span className="size-2.5 rounded-full bg-yellow-500/80" />
-          <span className="size-2.5 rounded-full bg-green-500/80" />
+          <span className="size-2.5 rounded-full bg-red-400" />
+          <span className="size-2.5 rounded-full bg-yellow-400" />
+          <span className="size-2.5 rounded-full bg-green-400" />
         </div>
-        <span className="text-[10px] uppercase tracking-wider text-gray-500 font-bold">New Post</span>
+        <span className="text-[10px] uppercase tracking-wider text-gray-400 font-bold">
+          New Post
+        </span>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1.5">
+          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500 block mb-1.5">
             What do you need done?
           </label>
-          <div className="w-full bg-black/40 border border-gray-800 rounded-lg px-3 py-2 text-xs text-white min-h-[36px] flex items-center">
+          <div className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 min-h-[36px] flex items-center">
             <span>{text}</span>
             {step === 0 && (
               <motion.span
@@ -73,7 +75,7 @@ function MockupStep1() {
         </div>
 
         <div>
-          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block mb-1.5">
+          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-500 block mb-1.5">
             Required Skills
           </label>
           <div className="flex flex-wrap gap-1.5 min-h-[26px]">
@@ -82,7 +84,7 @@ function MockupStep1() {
                 <motion.span
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="rounded-full bg-blue-500/10 border border-blue-500/30 px-2 py-0.5 text-[10px] text-blue-400 font-medium"
+                  className="rounded-full bg-blue-50 border border-blue-200 px-2 py-0.5 text-[10px] text-blue-600 font-medium"
                 >
                   Next.js
                 </motion.span>
@@ -90,7 +92,7 @@ function MockupStep1() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="rounded-full bg-indigo-500/10 border border-indigo-500/30 px-2 py-0.5 text-[10px] text-indigo-400 font-medium"
+                  className="rounded-full bg-indigo-50 border border-indigo-200 px-2 py-0.5 text-[10px] text-indigo-600 font-medium"
                 >
                   TypeScript
                 </motion.span>
@@ -98,7 +100,7 @@ function MockupStep1() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="rounded-full bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 text-[10px] text-purple-400 font-medium"
+                  className="rounded-full bg-purple-50 border border-purple-200 px-2 py-0.5 text-[10px] text-purple-600 font-medium"
                 >
                   Tailwind CSS
                 </motion.span>
@@ -108,11 +110,7 @@ function MockupStep1() {
         </div>
 
         <div className="pt-2 flex flex-col *:w-full">
-          {step < 2 && (
-            <Button disabled>
-              Publish Requirement
-            </Button>
-          )}
+          {step < 2 && <Button disabled>Publish Requirement</Button>}
           {step === 2 && (
             <Button>
               <span className="size-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -123,9 +121,9 @@ function MockupStep1() {
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="w-full bg-green-500/20 border border-green-500/40 text-green-400 rounded-lg py-2 text-xs font-bold text-center flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(34,197,94,0.1)]"
+              className="w-full bg-green-50 border border-green-200 text-green-600 rounded-lg py-2 text-xs font-bold text-center flex items-center justify-center gap-1.5 shadow-sm"
             >
-              <CheckCircle2 className="size-4 text-green-400" />
+              <CheckCircle2 className="size-4 text-green-500" />
               Requirement Live & Active!
             </motion.div>
           )}
@@ -136,29 +134,40 @@ function MockupStep1() {
 }
 
 function MockupStep2() {
-  const [messages, setMessages] = useState<{ sender: "user" | "talent"; text: string }[]>([]);
-  const [step, setStep] = useState(0); 
+  const [messages, setMessages] = useState<
+    { sender: "user" | "talent"; text: string }[]
+  >([]);
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     const t1 = setTimeout(() => setStep(1), 400);
     const t2 = setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { sender: "talent", text: "Hi! I saw your post. I have 4+ years of Next.js experience!" },
+        {
+          sender: "talent",
+          text: "Hi! I saw your post. I have 4+ years of Next.js experience!",
+        },
       ]);
       setStep(2);
     }, 1200);
     const t3 = setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { sender: "user", text: "Hi Sarah! Your portfolio looks excellent. Let's connect." },
+        {
+          sender: "user",
+          text: "Hi Sarah! Your portfolio looks excellent. Let's connect.",
+        },
       ]);
       setStep(3);
     }, 2500);
     const t4 = setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        { sender: "talent", text: "Awesome, thank you! I've accepted the invitation." },
+        {
+          sender: "talent",
+          text: "Awesome, thank you! I've accepted the invitation.",
+        },
       ]);
       setStep(4);
     }, 3800);
@@ -177,7 +186,7 @@ function MockupStep2() {
         initial={{ y: -20, opacity: 0 }}
         animate={step >= 1 ? { y: 0, opacity: 1 } : {}}
         transition={{ type: "spring", stiffness: 120, damping: 14 }}
-        className="rounded-2xl border border-gray-800 bg-gray-900/60 p-3 shadow-lg flex items-center justify-between"
+        className="rounded-2xl border border-gray-200 bg-white p-3 shadow-md flex items-center justify-between"
       >
         <div className="flex items-center gap-3">
           <div className="size-10 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-md">
@@ -185,21 +194,28 @@ function MockupStep2() {
           </div>
           <div>
             <div className="flex items-center gap-1">
-              <span className="text-xs font-bold text-white">Sarah Jenkins</span>
-              <span className="size-3.5 rounded-full bg-blue-500 flex items-center justify-center text-[8px] text-white font-extrabold" title="Verified">
+              <span className="text-xs font-bold text-gray-900">
+                Sarah Jenkins
+              </span>
+              <span
+                className="size-3.5 rounded-full bg-blue-500 flex items-center justify-center text-[8px] text-white font-extrabold"
+                title="Verified"
+              >
                 ✓
               </span>
             </div>
             <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="text-[10px] text-gray-400">Next.js Architect</span>
-              <span className="text-[10px] text-amber-400 flex items-center gap-0.5">
+              <span className="text-[10px] text-gray-500">
+                Next.js Architect
+              </span>
+              <span className="text-[10px] text-amber-500 flex items-center gap-0.5">
                 ★ 4.9
               </span>
             </div>
           </div>
         </div>
         <div className="text-right">
-          <div className="rounded-full bg-green-500/10 border border-green-500/30 px-2 py-0.5 text-[9px] text-green-400 font-extrabold inline-block">
+          <div className="rounded-full bg-green-50 border border-green-200 px-2 py-0.5 text-[9px] text-green-600 font-extrabold inline-block">
             98% Match
           </div>
         </div>
@@ -208,7 +224,7 @@ function MockupStep2() {
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={step >= 2 ? { scale: 1, opacity: 1 } : {}}
-        className="rounded-2xl border border-gray-800 bg-black/40 p-4 h-48 flex flex-col justify-between"
+        className="rounded-2xl border border-gray-200 bg-gray-50 p-4 h-48 flex flex-col justify-between"
       >
         <div className="space-y-3 overflow-y-auto pr-1 select-none scrollbar-none">
           <AnimatePresence>
@@ -224,7 +240,7 @@ function MockupStep2() {
                   className={`max-w-[80%] rounded-2xl px-3 py-1.5 text-[11px] leading-relaxed shadow-sm ${
                     msg.sender === "user"
                       ? "bg-blue-600 text-white rounded-tr-none"
-                      : "bg-gray-800 text-gray-200 rounded-tl-none border border-gray-700/50"
+                      : "bg-white text-gray-700 rounded-tl-none border border-gray-200"
                   }`}
                 >
                   {msg.text}
@@ -234,8 +250,8 @@ function MockupStep2() {
           </AnimatePresence>
         </div>
 
-        <div className="border-t border-gray-800/80 pt-2 flex items-center justify-between">
-          <div className="text-[10px] text-gray-500 pl-1">
+        <div className="border-t border-gray-200 pt-2 flex items-center justify-between">
+          <div className="text-[10px] text-gray-400 pl-1">
             {step === 2 && "Sarah is typing..."}
             {step === 3 && "You replied"}
             {step >= 4 && "Connected"}
@@ -276,25 +292,26 @@ function MockupStep3() {
   }, []);
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-2xl backdrop-blur-md relative overflow-hidden">
-      
+    <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-5 shadow-xl relative overflow-hidden">
       {step === 3 && (
-        <div className="absolute inset-0 bg-green-500/5 transition-opacity duration-700 animate-pulse pointer-events-none" />
+        <div className="absolute inset-0 bg-green-50/50 transition-opacity duration-700 animate-pulse pointer-events-none" />
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <h4 className="text-xs font-bold text-white tracking-wide">Project Workspace</h4>
-        <span className="text-[10px] text-blue-400 font-bold bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full">
+        <h4 className="text-xs font-bold text-gray-900 tracking-wide">
+          Project Workspace
+        </h4>
+        <span className="text-[10px] text-blue-600 font-bold bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
           Sarah Jenkins
         </span>
       </div>
 
       <div className="mb-5">
-        <div className="flex items-center justify-between text-[10px] text-gray-400 mb-1.5">
+        <div className="flex items-center justify-between text-[10px] text-gray-500 mb-1.5">
           <span>Project Progress</span>
-          <span className="font-bold text-white">{progress}%</span>
+          <span className="font-bold text-gray-900">{progress}%</span>
         </div>
-        <div className="w-full h-2 bg-black/40 border border-gray-800 rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-gray-100 border border-gray-200 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full"
             initial={{ width: "33%" }}
@@ -305,42 +322,70 @@ function MockupStep3() {
       </div>
       <div className="space-y-3 mb-1">
         <div className="flex items-center gap-3">
-          <div className="size-4 rounded border border-green-500 bg-green-500/20 flex items-center justify-center text-green-400 text-[10px]">
+          <div className="size-4 rounded border border-green-400 bg-green-50 flex items-center justify-center text-green-500 text-[10px]">
             ✓
           </div>
-          <span className="text-xs text-gray-500 line-through">Onboarding & Setup</span>
+          <span className="text-xs text-gray-400 line-through">
+            Onboarding & Setup
+          </span>
         </div>
 
         <div className="flex items-center gap-3">
           <motion.div
-            animate={step >= 1 ? { borderColor: "#22c55e", backgroundColor: "rgba(34,197,94,0.2)" } : {}}
-            className="size-4 rounded border border-gray-700 bg-black/20 flex items-center justify-center text-[10px]"
+            animate={
+              step >= 1
+                ? {
+                    borderColor: "#22c55e",
+                    backgroundColor: "rgba(34,197,94,0.1)",
+                  }
+                : {}
+            }
+            className="size-4 rounded border border-gray-300 bg-gray-50 flex items-center justify-center text-[10px]"
           >
             {step >= 1 ? (
-              <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-green-400">
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="text-green-500"
+              >
                 ✓
               </motion.span>
             ) : (
               <span className="size-1.5 rounded-full bg-blue-500 animate-ping" />
             )}
           </motion.div>
-          <span className={`text-xs transition-all duration-300 ${step >= 1 ? "text-gray-500 line-through" : "text-white font-medium"}`}>
+          <span
+            className={`text-xs transition-all duration-300 ${step >= 1 ? "text-gray-400 line-through" : "text-gray-900 font-medium"}`}
+          >
             Development & Integration
           </span>
         </div>
 
         <div className="flex items-center gap-3">
           <motion.div
-            animate={step >= 2 ? { borderColor: "#22c55e", backgroundColor: "rgba(34,197,94,0.2)" } : {}}
-            className="size-4 rounded border border-gray-700 bg-black/20 flex items-center justify-center text-[10px]"
+            animate={
+              step >= 2
+                ? {
+                    borderColor: "#22c55e",
+                    backgroundColor: "rgba(34,197,94,0.1)",
+                  }
+                : {}
+            }
+            className="size-4 rounded border border-gray-300 bg-gray-50 flex items-center justify-center text-[10px]"
           >
             {step >= 2 && (
-              <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-green-400">
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="text-green-500"
+              >
                 ✓
               </motion.span>
             )}
           </motion.div>
-          <span className={`text-xs transition-all duration-300 ${step >= 2 ? "text-gray-500 line-through" : "text-gray-500"}`}>
+          <span
+            className={`text-xs transition-all duration-300 ${step >= 2 ? "text-gray-400 line-through" : "text-gray-400"}`}
+          >
             Final Testing & Handover
           </span>
         </div>
@@ -351,14 +396,18 @@ function MockupStep3() {
             initial={{ y: 15, opacity: 0, scale: 0.95 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 15, opacity: 0 }}
-            className="mt-4 rounded-xl border border-green-500/30 bg-green-950/20 p-3 flex items-center gap-3 shadow-[0_0_20px_rgba(34,197,94,0.15)]"
+            className="mt-4 rounded-xl border border-green-200 bg-green-50 p-3 flex items-center gap-3 shadow-sm"
           >
-            <div className="size-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 shrink-0">
+            <div className="size-8 rounded-full bg-green-100 flex items-center justify-center text-green-500 shrink-0">
               <ShieldCheck className="size-5" />
             </div>
             <div>
-              <div className="text-[10px] uppercase font-bold tracking-wider text-green-400">Escrow Released</div>
-              <div className="text-xs font-black text-white">$4,500.00 transferred securely</div>
+              <div className="text-[10px] uppercase font-bold tracking-wider text-green-600">
+                Escrow Released
+              </div>
+              <div className="text-xs font-black text-gray-900">
+                $4,500.00 transferred securely
+              </div>
             </div>
           </motion.div>
         )}
@@ -420,28 +469,34 @@ export function ProfessionalsSection() {
 
   const handleStepSelect = (idx: number) => {
     setActiveStep(idx);
-    setIsPaused(true); 
+    setIsPaused(true);
   };
 
   const handleStepHover = (idx: number) => {
     setActiveStep(idx);
-    setIsPaused(true); 
+    setIsPaused(true);
   };
 
   return (
-    <AnimatedSection className="relative overflow-hidden bg-black py-20 lg:py-28">
-      <div className="absolute top-1/4 left-1/10 size-96 rounded-full bg-blue-500/5 blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/10 size-96 rounded-full bg-indigo-500/5 blur-3xl" />
+    <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
+      <div className="absolute top-1/4 left-1/10 size-96 rounded-full bg-blue-100/30 blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/10 size-96 rounded-full bg-indigo-100/30 blur-3xl" />
 
       <div className="container-custom relative z-10">
- <h2 className="text-4xl font-medium text-white sm:text-5xl">Find qualified professionals, trusted services, and verified products — all in one platform.</h2>
-        <p className="mt-4 text-lg font-medium text-gray-400 mb-8">Whether you need to hire talent, offer your expertise, or showcase products — we have got you covered.</p>
+        <h2 className="text-4xl font-medium text-gray-900 sm:text-5xl">
+          Find qualified professionals, trusted services, and verified products
+          — all in one platform.
+        </h2>
+        <p className="mt-4 text-lg font-medium text-gray-500 mb-8">
+          Whether you need to hire talent, offer your expertise, or showcase
+          products — we have got you covered.
+        </p>
         <div
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           className="mt-12 lg:mt-16"
         >
-         <div className="space-y-6 lg:hidden">
+          <div className="space-y-6 lg:hidden">
             {steps.map((step, idx) => {
               const isActive = activeStep === idx;
               const Icon = step.icon;
@@ -452,8 +507,8 @@ export function ProfessionalsSection() {
                   className={cn(
                     "rounded-2xl border p-6 transition-all duration-300 cursor-pointer select-none",
                     isActive
-                      ? "border-blue-500/40 bg-gray-900/40 shadow-[0_0_25px_rgba(59,130,246,0.1)]"
-                      : "border-gray-800 bg-gray-950/60"
+                      ? "border-blue-300 bg-blue-50/40 shadow-[0_0_25px_rgba(59,130,246,0.08)]"
+                      : "border-gray-200 bg-gray-50",
                   )}
                 >
                   <div className="flex items-center gap-4">
@@ -462,7 +517,7 @@ export function ProfessionalsSection() {
                         "flex size-11 items-center justify-center rounded-xl font-bold transition-all duration-300",
                         isActive
                           ? "bg-gradient-to-tr from-blue-500 to-indigo-600 text-white shadow-md shadow-blue-500/20"
-                          : "border border-gray-700 bg-gray-900 text-gray-400"
+                          : "border border-gray-200 bg-white text-gray-400",
                       )}
                     >
                       <Icon className="size-5" />
@@ -471,7 +526,9 @@ export function ProfessionalsSection() {
                       <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">
                         Step {step.number}
                       </span>
-                      <h3 className="text-lg font-bold text-white mt-0.5">{step.title}</h3>
+                      <h3 className="text-lg font-bold text-gray-900 mt-0.5">
+                        {step.title}
+                      </h3>
                     </div>
                   </div>
 
@@ -484,10 +541,10 @@ export function ProfessionalsSection() {
                     }}
                     className="overflow-hidden"
                   >
-                    <p className="text-sm leading-relaxed text-gray-400 mb-6">
+                    <p className="text-sm leading-relaxed text-gray-500 mb-6">
                       {step.description}
                     </p>
-                    <div className="flex justify-center p-4 bg-black/40 rounded-2xl border border-gray-800/40">
+                    <div className="flex justify-center p-4 bg-gray-50 rounded-2xl border border-gray-200">
                       {idx === 0 && <MockupStep1 />}
                       {idx === 1 && <MockupStep2 />}
                       {idx === 2 && <MockupStep3 />}
@@ -499,13 +556,14 @@ export function ProfessionalsSection() {
           </div>
 
           <div className="hidden lg:grid lg:grid-cols-12 lg:gap-12 items-center">
-           <div className="lg:col-span-5 relative space-y-8 pl-8">
-              <div className="absolute left-3.5 top-8 bottom-8 w-0.5 bg-gray-800/60 rounded-full">
+            <div className="lg:col-span-5 relative space-y-8 pl-8">
+              <div className="absolute left-3.5 top-8 bottom-8 w-0.5 bg-gray-200 rounded-full">
                 <motion.div
                   className="w-full bg-gradient-to-b from-blue-500 to-indigo-500 origin-top rounded-full"
                   initial={{ scaleY: 0 }}
                   animate={{
-                    scaleY: activeStep === 0 ? 0.15 : activeStep === 1 ? 0.65 : 1,
+                    scaleY:
+                      activeStep === 0 ? 0.15 : activeStep === 1 ? 0.65 : 1,
                   }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                   style={{ height: "100%" }}
@@ -523,8 +581,8 @@ export function ProfessionalsSection() {
                     className={cn(
                       "group relative flex gap-6 p-6 rounded-2xl border transition-all duration-300 cursor-pointer select-none",
                       isActive
-                        ? "border-blue-500/30 bg-gray-900/30 shadow-[0_0_20px_rgba(59,130,246,0.08)]"
-                        : "border-transparent hover:bg-gray-900/10 hover:border-gray-800/50"
+                        ? "border-blue-300 bg-blue-50/30 shadow-[0_0_20px_rgba(59,130,246,0.06)]"
+                        : "border-transparent hover:bg-gray-50 hover:border-gray-200",
                     )}
                   >
                     <div
@@ -533,8 +591,8 @@ export function ProfessionalsSection() {
                         isActive
                           ? "border-blue-500 bg-blue-500 text-white shadow-[0_0_8px_rgba(59,130,246,0.6)]"
                           : activeStep > idx
-                          ? "border-indigo-500 bg-indigo-950/40 text-indigo-400"
-                          : "border-gray-700 bg-gray-950 text-gray-500"
+                            ? "border-indigo-400 bg-indigo-50 text-indigo-500"
+                            : "border-gray-300 bg-white text-gray-400",
                       )}
                     >
                       {activeStep > idx ? "✓" : idx + 1}
@@ -545,7 +603,7 @@ export function ProfessionalsSection() {
                         "flex size-12 shrink-0 items-center justify-center rounded-xl font-bold transition-all duration-300",
                         isActive
                           ? "bg-gradient-to-tr from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20"
-                          : "border border-gray-800 bg-gray-950 text-gray-400 group-hover:border-gray-700 group-hover:text-gray-300"
+                          : "border border-gray-200 bg-gray-50 text-gray-400 group-hover:border-gray-300 group-hover:text-gray-500",
                       )}
                     >
                       <Icon className="size-6" />
@@ -555,15 +613,15 @@ export function ProfessionalsSection() {
                       <span
                         className={cn(
                           "text-[10px] font-bold uppercase tracking-wider transition-colors duration-300",
-                          isActive ? "text-blue-400" : "text-gray-500"
+                          isActive ? "text-blue-500" : "text-gray-400",
                         )}
                       >
                         Step {step.number}
                       </span>
-                      <h3 className="text-xl font-bold text-white mt-0.5 group-hover:text-slate-100 transition-colors">
+                      <h3 className="text-xl font-bold text-gray-900 mt-0.5 group-hover:text-gray-700 transition-colors">
                         {step.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-gray-400">
+                      <p className="mt-2 text-sm leading-relaxed text-gray-500">
                         {step.description}
                       </p>
                     </div>
@@ -573,9 +631,9 @@ export function ProfessionalsSection() {
             </div>
 
             <div className="lg:col-span-7 flex justify-center items-center relative pl-8">
-              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-blue-500/10 to-indigo-500/0 opacity-60 blur-xl" />
-              <div className="relative w-full min-h-[380px] max-w-md flex items-center justify-center rounded-3xl border border-gray-800 bg-gray-950/60 shadow-3xl backdrop-blur-md overflow-hidden p-8">
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:32px_32px] opacity-10" />
+              <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-blue-100/40 to-indigo-100/0 opacity-60 blur-xl" />
+              <div className="relative w-full min-h-[380px] max-w-md flex items-center justify-center rounded-3xl border border-gray-200 bg-gray-50 shadow-xl backdrop-blur-md overflow-hidden p-8">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:32px_32px] opacity-30" />
 
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -599,4 +657,3 @@ export function ProfessionalsSection() {
     </AnimatedSection>
   );
 }
-

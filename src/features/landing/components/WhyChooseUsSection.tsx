@@ -18,24 +18,24 @@ const features = [
     title: "Verified Professionals",
     description:
       "Connect with verified active experts and business professionals.",
-    colorClass: "hover:border-blue-500/30 hover:bg-blue-950/10",
-    iconBg: "border-blue-800/30 bg-blue-950/20",
+    colorClass: "hover:border-blue-300 hover:bg-blue-50",
+    iconBg: "border-blue-200 bg-blue-50",
   },
   {
     icon: <Sparkles className="size-7 " />,
     title: "Smart Job Matching",
     description:
       "AI-powered algorithms match you with opportunities that align with your skills and goals.",
-    colorClass: "hover:border-indigo-500/30 hover:bg-indigo-950/10",
-    iconBg: "border-indigo-800/30 bg-indigo-950/20",
+    colorClass: "hover:border-indigo-300 hover:bg-indigo-50",
+    iconBg: "border-indigo-200 bg-indigo-50",
   },
   {
     icon: <ShieldCheck className="size-7 " />,
     title: "Secure & Private",
     description:
       "Your data is secure with enterprise-grade security and privacy controls.",
-    colorClass: "hover:border-emerald-500/30 hover:bg-emerald-950/10",
-    iconBg: "border-emerald-800/30 bg-emerald-950/20",
+    colorClass: "hover:border-emerald-300 hover:bg-emerald-50",
+    iconBg: "border-emerald-200 bg-emerald-50",
   },
   // Row 2
   {
@@ -43,35 +43,35 @@ const features = [
     title: "Real-time Insights",
     description:
       "Track your profile views, connection requests, and job post performance stats.",
-    colorClass: "hover:border-amber-500/30 hover:bg-amber-950/10",
-    iconBg: "border-amber-800/30 bg-amber-950/20",
+    colorClass: "hover:border-amber-300 hover:bg-amber-50",
+    iconBg: "border-amber-200 bg-amber-50",
   },
   {
     icon: <Globe className="size-7 " />,
     title: "Global Networking",
     description:
       "Expand your reach and collaborate with professionals from all around the world.",
-    colorClass: "hover:border-cyan-500/30 hover:bg-cyan-950/10",
-    iconBg: "border-cyan-800/30 bg-cyan-950/20",
+    colorClass: "hover:border-cyan-300 hover:bg-cyan-50",
+    iconBg: "border-cyan-200 bg-cyan-50",
   },
   {
     icon: <MessageSquare className="size-7 " />,
     title: "Seamless Chat",
     description:
       "Communicate directly with connections and peers with built-in instant messaging.",
-    colorClass: "hover:border-rose-500/30 hover:bg-rose-950/10",
-    iconBg: "border-rose-800/30 bg-rose-950/20",
+    colorClass: "hover:border-rose-300 hover:bg-rose-50",
+    iconBg: "border-rose-200 bg-rose-50",
   },
 ];
 
 export function WhyChooseUsSection() {
   return (
-    <AnimatedSection className="relative overflow-hidden bg-black py-20 lg:py-28">
+    <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
       <div className="container-custom">
-        <h2 className="text-4xl font-medium text-white sm:text-5xl">
+        <h2 className="text-4xl font-medium text-gray-900 sm:text-5xl">
           Why choose us?
         </h2>
-        <p className="mt-4 text-lg font-medium text-gray-400 mb-8">
+        <p className="mt-4 text-lg font-medium text-gray-500 mb-8">
           Experience the future of professional networking with our innovative
           features.
         </p>
@@ -79,7 +79,7 @@ export function WhyChooseUsSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group relative h-full border border-gray-700 bg-gray-950 p-7 flex flex-col justify-start gap-0 rounded-2xl"
+              className="group relative h-full border border-gray-200 bg-gray-50 p-7 flex flex-col justify-start gap-0 rounded-2xl"
             >
               <GlowingEffect
                 spread={40}
@@ -89,13 +89,13 @@ export function WhyChooseUsSection() {
                 proximity={64}
                 inactiveZone={0.01}
               />
-              <div className="flex size-16 items-center justify-center rounded-xl border border-gray-800 bg-gray-900/50 text-white mb-6">
+              <div className="flex size-16 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 mb-6">
                 {feature.icon}
               </div>
-              <div className="text-2xl font-medium text-white block w-full mb-2">
+              <div className="text-2xl font-medium text-gray-900 block w-full mb-2">
                 {feature.title}
               </div>
-              <div className="text-lg text-gray-400 block w-full">
+              <div className="text-lg text-gray-500 block w-full">
                 {feature.description}
               </div>
             </div>

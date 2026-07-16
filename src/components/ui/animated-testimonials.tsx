@@ -70,7 +70,7 @@ export const AnimatedTestimonials = ({
                     z: isActive(index) ? 0 : -100,
                     rotate: isActive(index) ? 0 : randomRotateY(index),
                     zIndex: isActive(index)
-                      ? 999
+                      ? 20
                       : testimonials.length + 2 - index,
                     y: isActive(index) ? [0, -80, 0] : 0,
                   }}
@@ -92,7 +92,7 @@ export const AnimatedTestimonials = ({
                     width={500}
                     height={500}
                     draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
+                    className="h-full w-full rounded-3xl aspect-square  object-cover"
                   />
                 </motion.div>
               ))}
@@ -125,7 +125,7 @@ export const AnimatedTestimonials = ({
             <p className="text-lg text-gray-400">
               {testimonials[active].designation}
             </p>
-            <motion.p className="text-lg text-muted-foreground mt-8">
+            <motion.p className="text-lg text-gray-400 mt-8">
               {testimonials[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -152,22 +152,22 @@ export const AnimatedTestimonials = ({
             </motion.p>
           </motion.div>
           <div className="flex gap-4 pt-12 md:pt-0">
-             <Button
-             onClick={handlePrev}
-                size="icon-lg"
-                variant="default"
-                className="mt-8"
-              >
-                <IconArrowLeft className="size-4" strokeWidth={2} />
-              </Button>
-               <Button
-          onClick={handleNext}
-                size="icon-lg"
-                variant="default"
-                className="mt-8 "
-              >
-                <IconArrowRight className="size-4" strokeWidth={2} />
-              </Button>
+            <Button
+              onClick={handlePrev}
+              size="icon-lg"
+              variant="default"
+              className="mt-8"
+            >
+              <IconArrowLeft className="size-4" strokeWidth={2} />
+            </Button>
+            <Button
+              onClick={handleNext}
+              size="icon-lg"
+              variant="default"
+              className="mt-8 "
+            >
+              <IconArrowRight className="size-4" strokeWidth={2} />
+            </Button>
           </div>
         </div>
       </div>

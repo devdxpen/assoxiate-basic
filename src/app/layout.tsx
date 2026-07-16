@@ -3,7 +3,7 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -22,8 +22,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("dark", "h-full", "antialiased", poppins.variable, "font-sans", inter.variable)}>
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
+    <html
+      lang="en"
+      className={cn(
+        "dark",
+        "h-full",
+        "antialiased",
+        poppins.variable,
+        "font-sans",
+        inter.variable,
+      )}
+    >
+      <body className="min-h-full flex flex-col font-sans bg-white text-foreground">
         {children}
       </body>
     </html>

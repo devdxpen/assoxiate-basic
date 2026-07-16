@@ -24,13 +24,13 @@ export function SectionHeading({
       )}
     >
       {label && (
-        <span className="mb-3 inline-block rounded-xl border border-gray-700 bg-gray-950 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
+        <span className="mb-3 inline-block rounded-xl border border-gray-200 bg-gray-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-gray-500">
           {label}
         </span>
       )}
       <h2
         className={cn(
-          "text-4xl font-medium text-white sm:text-5xl",
+          "text-4xl font-medium text-gray-900 sm:text-5xl",
           label && "mt-4"
         )}
       >
@@ -39,7 +39,7 @@ export function SectionHeading({
       {subtitle && (
         <p
           className={cn(
-            "mt-4 text-lg font-medium text-gray-400",
+            "mt-4 text-lg font-medium text-gray-500",
             align === "center" && "mx-auto max-w-2xl"
           )}
         >
