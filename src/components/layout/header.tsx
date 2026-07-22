@@ -3,42 +3,41 @@ import { BrandMark } from "@/components/BrandMark";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
+const navLinks = [
+  { label: "Home", href: "#" },
+  { label: "Associates", href: "#" },
+  { label: "Jobs", href: "#" },
+  { label: "Solutions", href: "#", hasDropdown: true },
+  { label: "Articles", href: "#" },
+];
+
 export function Header() {
   return (
-    <header className="sticky! w-full top-0 z-50 flex h-20 items-center justify-between border-b border-gray-700 bg-black/80 backdrop-blur-md container-custom">
-      <BrandMark />
+    <header className="fixed! w-full top-0 z-50 flex h-20 items-center justify-between border-b border-gray-200 bg-white/80 backdrop-blur-md container-custom">
+      <BrandMark logo="light" />
 
-      <nav className="hidden items-center gap-8 text-xs font-bold uppercase tracking-wider text-gray-500 lg:flex">
-        <Link className="transition hover:text-white" href="#">
-          Home
-        </Link>
-        <Link className="transition hover:text-white" href="#">
-          Associates
-        </Link>
-        <Link className="transition hover:text-white" href="#">
-          Jobs
-        </Link>
-        <Link className="flex items-center gap-1.5 transition hover:text-white" href="#">
-          Solutions
-          <ChevronDown className="size-3" strokeWidth={2.6} />
-        </Link>
-        <Link className="transition hover:text-white" href="#">
-          Articles
-        </Link>
+      <nav className="hidden items-center gap-8 text-xs font-medium uppercase tracking-wider text-gray-700 lg:flex">
+        {navLinks.map((link) => (
+          <Link
+            key={link.label}
+            className={`transition hover:text-black ${
+              link.hasDropdown ? "flex items-center gap-1.5" : ""
+            }`}
+            href={link.href}
+          >
+            {link.label}
+            {link.hasDropdown && (
+              <ChevronDown className="size-3" strokeWidth={2.6} />
+            )}
+          </Link>
+        ))}
       </nav>
 
       <div className="flex items-center gap-3">
-        <Button
-          variant="outline"
-          size="lg"
-          className="hidden sm:inline-flex"
-        >
+        <Button variant="outline" size="lg" className="hidden sm:inline-flex">
           Sign In
         </Button>
-        <Button
-          className="min-w-28"
-          size="lg"
-        >
+        <Button variant="default" className="min-w-28" size="lg">
           Join
         </Button>
       </div>

@@ -1,11 +1,18 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export function BrandMark() {
+interface BrandMarkProps {
+  logo?: "light" | "dark";
+  className?: string;
+}
+
+export function BrandMark({ logo = "light", className = "" }: BrandMarkProps) {
+  const logoSrc = logo === "dark" ? "/logo.png" : "/logo-1.png";
+
   return (
-    <Link href="/">
+    <Link href="/" className={`inline-block ${className}`}>
       <Image
-        src="/logo.png"
+        src={logoSrc}
         alt="AssoXiate Logo"
         width={153}
         height={40}

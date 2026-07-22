@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   description: "A dynamic platform where professionals find opportunities.",
 };
 
+import { TooltipProvider } from "@/components/ui/tooltip";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,7 +36,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-foreground">
-        {children}
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );
