@@ -16,7 +16,8 @@ import {
   CardBody,
   CardContainer,
   CardItem,
-} from "@/components/3d/3DCard.component";
+} from "@/components/animation/3DCard.component";
+import { Heading } from "@/components/animation/Heading";
 
 const jobCategories = [
   {
@@ -89,8 +90,8 @@ function CategoryCard({ name, count, icon }: CategoryCardProps) {
           {icon}
         </CardItem>
         <CardItem translateZ={50} className="text-2xl font-medium block w-full">
-          <h3 className="text-xl font-semibold">{name}</h3>
-          <p className="mt-1 text-sm text-gray-500">{count}</p>
+          <h3 className="h5 text-white">{name}</h3>
+          <p className="mt-1 text-sm text-gray-300">{count}</p>
         </CardItem>
       </CardBody>
     </CardContainer>
@@ -103,17 +104,21 @@ export function JobsSection() {
       <div className="bg-black p-20 rounded-2xl overflow-hidden">
         <div className=" mb-12  flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <h2 className="mb-3 text-4xl font-bold sm:text-5xl">
-              Find the right job or internship for you
-            </h2>
+            <Heading
+              align="start"
+              as="h2"
+              textColor="text-white"
+              paragraph="Find the right job or internship for you"
+              className="mb-4"
 
-            <p className="text-muted-foreground">
+            />
+            <p className="text-gray-300">
               Discover thousands of opportunities across diverse industries and
               find your perfect match.
             </p>
           </div>
 
-          <Button size="lg">
+          <Button variant="white" size="lg">
             Explore Jobs Now
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { GlobeConfig } from "@/components/3d/globe";
+import { GlobeConfig } from "@/components/animation/globe";
 
 const World = dynamic(
-  () => import("@/components/3d/globe").then((m) => m.World),
+  () => import("@/components/animation/globe").then((m) => m.World),
   { ssr: false }
 );
 

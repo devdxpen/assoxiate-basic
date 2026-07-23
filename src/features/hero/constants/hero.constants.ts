@@ -22,9 +22,10 @@ export const GLOBE_MARKERS: GlobeMarker[] = [
   { location: [-23.5505, -46.6333], size: 0.07 }, // São Paulo
 ];
 
-export const NETWORK_NODES: PersonNodeData[] = [
+export const NETWORK_NODES: NetworkNodeData[] = [
   {
     id: "1",
+    type: "user",
     name: "Ananya Iyer",
     designation: "Lead Product Designer",
     location: "Mumbai, India",
@@ -37,38 +38,42 @@ export const NETWORK_NODES: PersonNodeData[] = [
   },
   {
     id: "2",
-    name: "Alex Rivera",
-    designation: "Full-Stack Architect",
+    type: "job",
+    jobTitle: "Sr. Full-Stack Engineer",
+    companyName: "TechNova Systems",
     location: "San Francisco, USA",
+    salaryRange: "$140k - $180k",
+    jobType: "Remote • Full-time",
     avatarUrl:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300",
-    initials: "AR",
+      "https://images.unsplash.com/photo-1572021335469-31706a17aaef?auto=format&fit=crop&q=80&w=300",
     position: { left: "84%", top: "20%" },
     delay: 0.4,
-    isOnline: true,
+    badgeText: "Hiring Now",
   },
   {
     id: "3",
-    name: "Marcus Chen",
-    designation: "Tech Lead @ TechNova",
+    type: "company",
+    companyName: "Nexus AI Labs",
+    industry: "Enterprise AI & Cloud",
     location: "London, UK",
+    employeesCount: "50-200 Employees",
     avatarUrl:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300",
-    initials: "MC",
+      "https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&q=80&w=300",
     position: { left: "84%", top: "78%" },
     delay: 0.8,
-    isOnline: true,
+    isVerified: true,
   },
   {
     id: "4",
-    name: "Sarah Jenkins",
-    designation: "Product Strategist",
-    location: "Berlin, Germany",
+    type: "product",
+    productName: "CloudFlow Analytics",
+    category: "SaaS Platform",
+    price: "$49 / month",
+    rating: "★ 4.9 (120+ reviews)",
+    tagline: "Real-time Telemetry Dashboard",
     avatarUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300",
-    initials: "SJ",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=300",
     position: { left: "16%", top: "76%" },
     delay: 1.2,
-    isOnline: true,
   },
 ];

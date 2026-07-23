@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "motion/react";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Heading } from "@/components/animation/Heading";
 
 export function NetworkBanner() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -95,10 +96,14 @@ export function NetworkBanner() {
       <div ref={sectionRef} className="container-custom">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           <div className="max-w-xl">
-            <h2 className="text-4xl font-medium text-gray-900 sm:text-5xl">
-              Grow your professional network
-            </h2>
-            <p className="mt-4 text-lg text-gray-500">
+            <Heading
+              align="start"
+              as="h2"
+              paragraph="Grow your professional network"
+              className="mb-4"
+
+            />
+            <p >
               Build meaningful relationships with peers, industry leaders, and
               potential partners. Our platform enables seamless connection and
               collaboration.
@@ -118,7 +123,7 @@ export function NetworkBanner() {
                       className="size-5"
                     />
                   </div>
-                  <span className="text-lg text-gray-500">{item}</span>
+                  <span className="text-gray-500">{item}</span>
                 </li>
               ))}
             </ul>
@@ -167,11 +172,10 @@ export function NetworkBanner() {
                             y1={from.y}
                             x2={to.x}
                             y2={to.y}
-                            className={`transition-all duration-300 ${
-                              isLineHighlighted
-                                ? "stroke-blue-500 stroke-[1.8px]"
-                                : "stroke-blue-400/30 stroke-[1.2px]"
-                            }`}
+                            className={`transition-all duration-300 ${isLineHighlighted
+                              ? "stroke-blue-500 stroke-[1.8px]"
+                              : "stroke-blue-400/30 stroke-[1.2px]"
+                              }`}
                           />
                           {/* Glow under the particle */}
                           <motion.circle
@@ -231,11 +235,10 @@ export function NetworkBanner() {
                           key={idx}
                           onMouseEnter={() => setHoveredIndex(idx)}
                           onMouseLeave={() => setHoveredIndex(null)}
-                          className={`absolute w-[26%] h-[26%] rounded-2xl flex items-center justify-center cursor-pointer transition-all duration-300 border ${
-                            isHovered
-                              ? "bg-white border-blue-300 shadow-[0_0_20px_rgba(59,130,246,0.15)]"
-                              : "bg-gray-50/75 border-gray-200 hover:border-gray-300"
-                          }`}
+                          className={`absolute w-[26%] h-[26%] rounded-2xl flex items-center justify-center cursor-pointer transition-all duration-300 border ${isHovered
+                            ? "bg-white border-blue-300 shadow-[0_0_20px_rgba(59,130,246,0.15)]"
+                            : "bg-gray-50/75 border-gray-200 hover:border-gray-300"
+                            }`}
                           style={{
                             left: leftPos,
                             top: topPos,
@@ -250,18 +253,17 @@ export function NetworkBanner() {
                           {/* Centered Node Dot */}
                           <div className="relative flex items-center justify-center">
                             <div
-                              className={`size-3 sm:size-3.5 rounded-full transition-all duration-300 ${
-                                isHovered ||
+                              className={`size-3 sm:size-3.5 rounded-full transition-all duration-300 ${isHovered ||
                                 (hoveredIndex === null && isCornerOrCenter)
-                                  ? "bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.65)] scale-110"
-                                  : "bg-blue-300/50"
-                              }`}
+                                ? "bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.65)] scale-110"
+                                : "bg-blue-300/50"
+                                }`}
                             />
                             {/* Pulse ripple for active nodes */}
                             {(isHovered ||
                               (hoveredIndex === null && isCornerOrCenter)) && (
-                              <span className="absolute inset-0 rounded-full bg-blue-400/30 animate-ping pointer-events-none scale-150" />
-                            )}
+                                <span className="absolute inset-0 rounded-full bg-blue-400/30 animate-ping pointer-events-none scale-150" />
+                              )}
                           </div>
                         </motion.div>
                       );

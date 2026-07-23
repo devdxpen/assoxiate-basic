@@ -18,13 +18,14 @@ export const Counter = ({
   end,
   duration = 2,
   className,
-  fontSize = 30,
+  fontSize,
   ...rest
 }: CounterProps) => {
   const [prevStart, setPrevStart] = useState(start);
   const [prevEnd, setPrevEnd] = useState(end);
   const [value, setValue] = useState(end <= start ? end : start);
-  const height = fontSize + 10;
+  const effectiveFontSize = fontSize || 32;
+  const height = effectiveFontSize + 10;
 
   if (start !== prevStart || end !== prevEnd) {
     setPrevStart(start);
@@ -37,7 +38,7 @@ export const Counter = ({
     if (totalSteps <= 0) {
       return;
     }
-    
+
     // Convert duration (seconds) to interval ticks
     const stepDuration = (duration / totalSteps) * 1000;
 
@@ -57,10 +58,13 @@ export const Counter = ({
 
   return (
     <div
-      style={{ fontSize, height }}
+      style={{
+        ...(fontSize ? { fontSize } : {}),
+        height,
+      }}
       {...rest}
       className={cn(
-        "flex overflow-hidden rounded px-2 leading-none text-white font-bold",
+        "h2 flex overflow-hidden rounded px-2 leading-none text-white font-bold",
         className
       )}
     >
@@ -108,7 +112,7 @@ function Number({ mv, number, height }: { mv: MotionValue; number: number; heigh
   return (
     <motion.span
       style={{ y }}
-      className="absolute inset-0 flex items-center justify-center"
+      className="absolute inset-0 flex items-center justify-center h2 text-white"
     >
       {number}
     </motion.span>

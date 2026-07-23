@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { Heading } from "@/components/animation/Heading";
 
 const articles = [
   {
@@ -47,12 +48,15 @@ export function ArticlesSection() {
             <span className="text-xs font-bold uppercase tracking-widest text-gray-500">
               Articles
             </span>
-            <h2 className="mt-3 text-4xl font-medium text-gray-900 sm:text-5xl">
-              Stay updated with the latest trends, insights, tips, and professional development content.
-            </h2>
+            <Heading
+              align="start"
+              as="h2"
+              paragraph="Stay updated with the latest trends, insights, tips, and professional development content."
+              className="mb-4"
+            />
           </div>
           <Button
-            variant="default"
+            variant="whiteGlass"
             size="lg"
           >
             View All Articles
@@ -76,25 +80,25 @@ export function ArticlesSection() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                
+
                 {/* Category Badge */}
                 <span className="absolute left-4 top-4 rounded bg-white/90 px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-gray-600">
                   {article.category}
                 </span>
               </div>
               <div className="p-5">
-                <h3 className="mb-2 text-2xl font-bold leading-snug text-gray-900 transition-colors group-hover:text-gray-600">
+                <h3 className="mb-2 h5 transition-colors group-hover:text-gray-600">
                   {article.title}
                 </h3>
-                <p className="mb-5 text-sm leading-relaxed text-gray-500">
+                <p className="mb-5 text-base">
                   {article.excerpt}
                 </p>
                 <div className="flex items-center justify-between border-t border-gray-200 pt-4 text-xs text-gray-500">
-                  <span className="flex items-center gap-1.5 font-semibold text-gray-500">
+                  <span className="flex items-center gap-1.5 text-xs">
                     <Clock className="size-4 text-gray-400" />
                     {article.readTime}
                   </span>
-                  <span className="flex items-center gap-1.5 font-semibold text-gray-500">
+                  <span className="flex items-center gap-1.5 text-xs">
                     <Calendar className="size-4 text-gray-400" />
                     {article.date}
                   </span>
@@ -103,7 +107,7 @@ export function ArticlesSection() {
             </div>
           ))}
         </div>
-        
+
       </div>
     </AnimatedSection>
   );

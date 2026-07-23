@@ -1,5 +1,6 @@
 "use client";
 
+import { Heading } from "@/components/animation/Heading";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
@@ -38,10 +39,14 @@ export function TestimonialsSection() {
   return (
     <div className="relative overflow-hidden bg-black py-20 lg:py-28">
       <div className="container-custom">
-        <h2 className="text-4xl font-medium text-white sm:text-5xl">
-          What our users say
-        </h2>
-        <p className="mt-4 text-lg font-medium text-gray-400 mb-8">
+        <Heading
+          align="start"
+          textColor="text-white"
+          as="h2"
+          paragraph="What our users say"
+          className="mb-4"
+        />
+        <p className="mb-8">
           Hear from professionals who have found success and connections on our
           platform
         </p>

@@ -5,6 +5,7 @@ import { AnimatedSection } from "@/components/ui/animated-section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import LiquidMetal from "@/components/ui/liquid-metal";
+import { Heading } from "@/components/animation/Heading";
 
 export function CTASection() {
   return (
@@ -31,15 +32,18 @@ export function CTASection() {
             </Suspense>
           </div>
           <div className="relative flex flex-col items-center gap-6 px-8 py-16 text-center sm:px-12 sm:py-20 lg:py-24 z-10">
-            <h2 className="text-4xl font-medium text-gray-900 sm:text-5xl">
-              Ready to transform your
-              <span className="mt-1 block">professional journey?</span>
-            </h2>
-            <p className="max-w-2xl text-sm sm:text-base leading-relaxed text-gray-500">
+
+            <Heading
+              align="center"
+              as="h2"
+              paragraph="Ready to transform your professional journey?"
+              className="mb-4"
+            />
+            <p className="max-w-2xl">
               Join thousands of professionals who are already growing their
               careers, businesses, and networks on Assxiate.
             </p>
-            <Button size="lg" variant="secondary" className="mt-4">
+            <Button size="lg" variant="black" className="mt-4">
               Join Now — It&apos;s Free
               <ArrowRight className="size-4 ml-1.5" strokeWidth={2.6} />
             </Button>

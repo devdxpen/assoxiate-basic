@@ -1,6 +1,7 @@
 "use client";
 
-import { GlowingEffect } from "@/components/3d/glowingEffect";
+import { GlowingEffect } from "@/components/animation/glowingEffect";
+import { Heading } from "@/components/animation/Heading";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import {
@@ -68,10 +69,14 @@ export function WhyChooseUsSection() {
   return (
     <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
       <div className="container-custom">
-        <h2 className="text-4xl font-medium text-gray-900 sm:text-5xl">
-          Why choose us?
-        </h2>
-        <p className="mt-4 text-lg font-medium text-gray-500 mb-8">
+        <Heading
+          align="start"
+          as="h2"
+          paragraph="Why choose us?"
+          className="mb-4"
+
+        />
+        <p className="text-lg mb-8">
           Experience the future of professional networking with our innovative
           features.
         </p>
@@ -92,12 +97,12 @@ export function WhyChooseUsSection() {
               <div className="flex size-16 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-700 mb-6">
                 {feature.icon}
               </div>
-              <div className="text-2xl font-medium text-gray-900 block w-full mb-2">
+              <div className="h5 font-medium mb-2">
                 {feature.title}
               </div>
-              <div className="text-lg text-gray-500 block w-full">
+              <p className="w-full">
                 {feature.description}
-              </div>
+              </p>
             </div>
           ))}
         </div>
