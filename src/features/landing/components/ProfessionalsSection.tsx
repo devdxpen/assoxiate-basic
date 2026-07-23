@@ -174,10 +174,7 @@ export function ProfessionalsSection() {
           paragraph="A streamlined workflow engineered for clarity, speed, and trusted collaboration."
           className="mx-auto max-w-3xl"
         />
-        <p className="mx-auto mt-4 max-w-2xl text-center text-base text-gray-500">
-          A streamlined workflow engineered for clarity, speed, and trusted
-          collaboration.
-        </p>
+
       </div>
 
       <div className="container-custom relative z-10 mt-10">

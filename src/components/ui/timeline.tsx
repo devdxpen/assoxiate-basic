@@ -4,12 +4,92 @@ import {
   useScroll,
   useTransform,
   motion,
+  useInView,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
   title: string;
   content: React.ReactNode;
+}
+
+function TimelineItem({
+  item,
+  index,
+}: {
+  item: TimelineEntry;
+  index: number;
+}) {
+  const itemRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(itemRef, { once: true, margin: "-100px" });
+  const isEven = index % 2 === 0;
+
+  return (
+    <div
+      ref={itemRef}
+      className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-0 md:gap-8"
+    >
+      {/* Left content (visible on even steps) */}
+      <motion.div
+        initial={{ opacity: 0, x: isEven ? -60 : 0 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        className={`hidden md:block ${isEven ? "" : "pointer-events-none"}`}
+      >
+        {isEven ? (
+          <div className="flex justify-end">
+            <div className="w-full max-w-md">{item.content}</div>
+          </div>
+        ) : (
+          <div />
+        )}
+      </motion.div>
+
+      {/* Center dot */}
+      <div className="relative flex flex-col items-center">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={isInView ? { scale: 1 } : {}}
+          transition={{
+            duration: 0.4,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.05,
+          }}
+          className="relative z-10 flex size-14 items-center justify-center rounded-full border-2 border-gray-200 bg-white shadow-md"
+        >
+          <span className="text-lg font-bold text-gray-900">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </motion.div>
+      </div>
+
+      {/* Right content (visible on odd steps) */}
+      <motion.div
+        initial={{ opacity: 0, x: isEven ? 0 : 60 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        className={`hidden md:block ${!isEven ? "" : "pointer-events-none"}`}
+      >
+        {!isEven ? (
+          <div className="flex justify-start">
+            <div className="w-full max-w-md">{item.content}</div>
+          </div>
+        ) : (
+          <div />
+        )}
+      </motion.div>
+
+      {/* Mobile content (always visible, below the dot) */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        className="mt-4 md:hidden col-span-1"
+      >
+        {item.content}
+      </motion.div>
+    </div>
+  );
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
@@ -26,52 +106,44 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 10%", "end 50%"],
+    offset: ["start 20%", "end 60%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <div
-      className="w-full font-sans md:px-10"
-      ref={containerRef}
-    >
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+    <div className="w-full font-sans" ref={containerRef}>
+      <div ref={ref} className="relative mx-auto max-w-5xl space-y-16 pb-20 md:space-y-24">
         {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
-          >
-            <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-neutral-200 border border-neutral-300 p-2" />
-              </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500">
-                {item.title}
-              </h3>
-            </div>
-
-            <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500">
-                {item.title}
-              </h3>
-              {item.content}
-            </div>
-          </div>
+          <TimelineItem key={index} item={item} index={index} />
         ))}
+
+        {/* Centered animated line */}
         <div
-          style={{
-            height: height + "px",
-          }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+          style={{ height: height + "px" }}
+          className="pointer-events-none absolute left-1/2 top-0 hidden -translate-x-1/2 overflow-hidden md:block w-[2px] bg-gradient-to-b from-transparent via-gray-200 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
         >
           <motion.div
             style={{
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-blue-600 via-neutral-400 to-transparent from-[0%] via-[10%] rounded-full"
+            className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-gray-900 via-gray-400 to-transparent from-[0%] via-[10%]"
+          />
+        </div>
+
+        {/* Mobile left-aligned line */}
+        <div
+          style={{ height: height + "px" }}
+          className="pointer-events-none absolute left-[27px] top-0 block overflow-hidden md:hidden w-[2px] bg-gradient-to-b from-transparent via-gray-200 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+        >
+          <motion.div
+            style={{
+              height: heightTransform,
+              opacity: opacityTransform,
+            }}
+            className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-gray-900 via-gray-400 to-transparent from-[0%] via-[10%]"
           />
         </div>
       </div>
