@@ -137,7 +137,7 @@ export function Footer() {
       <div className="container-custom">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 pb-6">
           <div className="flex flex-col items-start">
-            <BrandMark />
+            <BrandMark logo="dark" />
             <div className="flex gap-2.5 mt-6">
               {socialLinks.map((social, i) => (
                 <a

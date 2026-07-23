@@ -13,7 +13,7 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="fixed! w-full top-0 z-50 flex h-20 items-center justify-between border-b border-gray-200 bg-white/80 backdrop-blur-md container-custom">
+    <header className="sticky! w-full top-0 z-50 flex h-20 items-center justify-between border-b border-gray-200 bg-white/80 backdrop-blur-md container-custom">
       <BrandMark logo="light" />
 
       <nav className="hidden items-center gap-8 text-xs font-medium uppercase tracking-wider text-gray-700 lg:flex">
