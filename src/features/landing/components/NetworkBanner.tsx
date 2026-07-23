@@ -28,13 +28,13 @@ const CircleNode = forwardRef<HTMLDivElement, NodeProps>(
         <div
           ref={ref}
           className={cn(
-            "z-10 flex size-14 items-center justify-center rounded-full border-2 border-neutral-200 bg-white shadow-[0_0_20px_-6px_rgba(0,0,0,0.1)] dark:border-neutral-700 dark:bg-neutral-900",
+            "z-100 flex size-14 items-center text-black justify-center rounded-full border-1 border-gray-200 bg-gray-200",
             className,
           )}
         >
           {children}
         </div>
-        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+        <span className="text-xs font-medium text-gray-700">
           {label}
         </span>
       </div>
@@ -49,7 +49,7 @@ const CenterNode = forwardRef<HTMLDivElement, Omit<NodeProps, "label">>(
       <div
         ref={ref}
         className={cn(
-          "z-10 flex size-20 items-center justify-center rounded-full border-2 border-neutral-300 bg-white shadow-[0_0_30px_-6px_rgba(0,0,0,0.15)] dark:border-neutral-600 dark:bg-neutral-900",
+          "z-10 flex size-20 items-center justify-center rounded-full border-1 border-neutral-300 bg-gray-200",
           className,
         )}
       >
@@ -72,7 +72,7 @@ export function NetworkBanner() {
   const jobRef = useRef<HTMLDivElement>(null);
   const connectionRef = useRef<HTMLDivElement>(null);
 
-  const ICON_CLASS = "size-6 text-neutral-600 dark:text-neutral-300";
+  const ICON_CLASS = "size-6 text-gray-700";
 
   return (
     <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
@@ -101,7 +101,7 @@ export function NetworkBanner() {
             {/* ── Layout: 3 rows for radial positioning ── */}
 
             {/* Top row: User, Company */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-start justify-center gap-24 md:gap-32">
+            <div className="absolute z-20 top-4 left-1/2 -translate-x-1/2 flex items-start justify-center gap-24 md:gap-32">
               <CircleNode ref={userRef} label="User">
                 <User className={ICON_CLASS} />
               </CircleNode>
@@ -118,7 +118,7 @@ export function NetworkBanner() {
 
               <CenterNode ref={centerRef}>
                 <Image
-                  src="/logo.png"
+                  src="/icon.png"
                   alt="AssoXiate Logo"
                   width={48}
                   height={48}
@@ -132,7 +132,7 @@ export function NetworkBanner() {
             </div>
 
             {/* Bottom row: Job, Connection */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-end justify-center gap-24 md:gap-32">
+            <div className="absolute z-20  bottom-4 left-1/2 -translate-x-1/2 flex items-end justify-center gap-24 md:gap-32">
               <CircleNode ref={jobRef} label="Job">
                 <Briefcase className={ICON_CLASS} />
               </CircleNode>
