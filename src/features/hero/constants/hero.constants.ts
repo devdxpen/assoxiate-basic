@@ -1,4 +1,4 @@
-import { HeroStat, GlobeMarker, PersonNodeData } from "../types/hero.types";
+import { GlobeMarker, HeroStat, NetworkNodeData } from "../types/hero.types";
 
 export const HERO_STATS: HeroStat[] = [
   { end: 18, suffix: "k", label: "Active Users" },

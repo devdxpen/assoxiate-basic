@@ -1,277 +1,228 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, useInView } from "motion/react";
+import { forwardRef, useRef } from "react";
+import Image from "next/image";
+import {
+  User,
+  Building2,
+  Package,
+  Wrench,
+  Briefcase,
+  Link2,
+} from "lucide-react";
+import { AnimatedBeam } from "@/components/animation/animated-beam";
 import { AnimatedSection } from "@/components/ui/animated-section";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Heading } from "@/components/animation/Heading";
+import { cn } from "@/lib/utils";
+
+interface NodeProps {
+  className?: string;
+  children: React.ReactNode;
+  label: string;
+}
+
+const CircleNode = forwardRef<HTMLDivElement, NodeProps>(
+  ({ className, children, label }, ref) => {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <div
+          ref={ref}
+          className={cn(
+            "z-10 flex size-14 items-center justify-center rounded-full border-2 border-neutral-200 bg-white shadow-[0_0_20px_-6px_rgba(0,0,0,0.1)] dark:border-neutral-700 dark:bg-neutral-900",
+            className,
+          )}
+        >
+          {children}
+        </div>
+        <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+          {label}
+        </span>
+      </div>
+    );
+  },
+);
+CircleNode.displayName = "CircleNode";
+
+const CenterNode = forwardRef<HTMLDivElement, Omit<NodeProps, "label">>(
+  ({ className, children }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "z-10 flex size-20 items-center justify-center rounded-full border-2 border-neutral-300 bg-white shadow-[0_0_30px_-6px_rgba(0,0,0,0.15)] dark:border-neutral-600 dark:bg-neutral-900",
+          className,
+        )}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+CenterNode.displayName = "CenterNode";
 
 export function NetworkBanner() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isSectionInView = useInView(sectionRef, {
-    once: false,
-    margin: "-100px",
-  });
-  const [checkedStates, setCheckedStates] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const centerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isSectionInView) {
-      const timers = [
-        setTimeout(
-          () =>
-            setCheckedStates((prev) => {
-              const next = [...prev];
-              next[0] = true;
-              return next;
-            }),
-          500,
-        ),
-        setTimeout(
-          () =>
-            setCheckedStates((prev) => {
-              const next = [...prev];
-              next[1] = true;
-              return next;
-            }),
-          800,
-        ),
-        setTimeout(
-          () =>
-            setCheckedStates((prev) => {
-              const next = [...prev];
-              next[2] = true;
-              return next;
-            }),
-          1100,
-        ),
-        setTimeout(
-          () =>
-            setCheckedStates((prev) => {
-              const next = [...prev];
-              next[3] = true;
-              return next;
-            }),
-          1400,
-        ),
-      ];
-      return () => timers.forEach(clearTimeout);
-    } else {
-      const timer = setTimeout(() => {
-        setCheckedStates((prev) =>
-          prev.some((v) => v) ? [false, false, false, false] : prev,
-        );
-      }, 0);
-      return () => clearTimeout(timer);
-    }
-  }, [isSectionInView]);
+  // Outer nodes refs
+  const userRef = useRef<HTMLDivElement>(null);
+  const companyRef = useRef<HTMLDivElement>(null);
+  const productRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const jobRef = useRef<HTMLDivElement>(null);
+  const connectionRef = useRef<HTMLDivElement>(null);
 
-  const getNodeCoords = (index: number) => {
-    const col = index % 3;
-    const row = Math.floor(index / 3);
-    const x = col === 0 ? 18 : col === 1 ? 50 : 82;
-    const y = row === 0 ? 18 : row === 1 ? 50 : 82;
-    return { x, y };
-  };
-
-  const defaultConnections = [
-    { from: 0, to: 4 },
-    { from: 2, to: 4 },
-    { from: 6, to: 4 },
-    { from: 8, to: 4 },
-  ];
-
-  const activeConnections = [...defaultConnections];
-  if (hoveredIndex !== null && ![0, 2, 4, 6, 8].includes(hoveredIndex)) {
-    activeConnections.push({ from: hoveredIndex, to: 4 });
-  }
+  const ICON_CLASS = "size-6 text-neutral-600 dark:text-neutral-300";
 
   return (
     <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
-      <div ref={sectionRef} className="container-custom">
+      <div className="container-custom">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          <div className="max-w-xl">
+          {/* Left — Text Content */}
+          <div>
             <Heading
               align="start"
               as="h2"
-              paragraph="Grow your professional network"
+              paragraph="Your Professional Network Hub"
               className="mb-4"
-
             />
-            <p >
-              Build meaningful relationships with peers, industry leaders, and
-              potential partners. Our platform enables seamless connection and
-              collaboration.
+            <p className="text-gray-500 max-w-md">
+              AssoXiate connects every piece of your professional ecosystem.
+              From companies and services to jobs and products — everything
+              links back to you.
             </p>
-
-            <ul className="mt-8 space-y-4">
-              {[
-                "Connect with verified professionals globally",
-                "Join industry-specific communities and groups",
-                "Share insights, projects and expertise",
-                "Get discovered by prospects, clients and companies",
-              ].map((item, index) => (
-                <li key={index} className="flex items-start gap-3 group/item">
-                  <div className="pt-0.5 pointer-events-none">
-                    <Checkbox
-                      checked={checkedStates[index]}
-                      className="size-5"
-                    />
-                  </div>
-                  <span className="text-gray-500">{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
-          <div className="relative flex justify-center items-center py-6">
-            <div className="relative p-8 w-full max-w-[480px] aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full rounded-3xl border border-gray-200 bg-gray-50 backdrop-blur-md p-6 overflow-hidden flex items-center justify-center group shadow-xl shadow-blue-100/30 hover:border-gray-300 transition-all duration-500">
-                <motion.div
-                  className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.08)_0%,transparent_70%)] pointer-events-none"
-                  animate={{
-                    opacity: [0.8, 1.2, 0.8],
-                    scale: [0.95, 1.05, 0.95],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <div className="relative w-full h-full">
-                  <svg
-                    className="absolute inset-0 w-full h-full pointer-events-none z-0"
-                    viewBox="0 0 100 100"
-                    fill="none"
-                  >
-                    {/* Render connection lines */}
-                    {activeConnections.map((conn, idx) => {
-                      const from = getNodeCoords(conn.from);
-                      const to = getNodeCoords(conn.to);
-                      const isLineHighlighted =
-                        hoveredIndex === conn.from || hoveredIndex === conn.to;
 
-                      return (
-                        <g key={`${conn.from}-${conn.to}-${idx}`}>
-                          {/* Outer glowing path */}
-                          <line
-                            x1={from.x}
-                            y1={from.y}
-                            x2={to.x}
-                            y2={to.y}
-                            className="stroke-blue-300/20 stroke-[4px] blur-[1px] transition-all duration-300"
-                          />
-                          {/* Inner line */}
-                          <line
-                            x1={from.x}
-                            y1={from.y}
-                            x2={to.x}
-                            y2={to.y}
-                            className={`transition-all duration-300 ${isLineHighlighted
-                              ? "stroke-blue-500 stroke-[1.8px]"
-                              : "stroke-blue-400/30 stroke-[1.2px]"
-                              }`}
-                          />
-                          {/* Glow under the particle */}
-                          <motion.circle
-                            r="2.5"
-                            fill="#3b82f6"
-                            opacity="0.4"
-                            initial={{ cx: from.x, cy: from.y, opacity: 0 }}
-                            animate={{
-                              cx: [from.x, to.x],
-                              cy: [from.y, to.y],
-                              opacity: [0, 0.4, 0.4, 0],
-                            }}
-                            transition={{
-                              duration: 2.2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: idx * 0.45,
-                            }}
-                          />
-                          {/* Core particle */}
-                          <motion.circle
-                            r="1.2"
-                            fill="#60a5fa"
-                            initial={{ cx: from.x, cy: from.y, opacity: 0 }}
-                            animate={{
-                              cx: [from.x, to.x],
-                              cy: [from.y, to.y],
-                              opacity: [0, 1, 1, 0],
-                            }}
-                            transition={{
-                              duration: 2.2,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: idx * 0.45,
-                            }}
-                          />
-                        </g>
-                      );
-                    })}
-                  </svg>
+          {/* Right — Animated Beam Diagram */}
+          <div
+            ref={containerRef}
+            className="relative flex items-center justify-center w-full min-h-[380px] md:min-h-[420px]"
+          >
+            {/* ── Layout: 3 rows for radial positioning ── */}
 
-                  <div className="absolute inset-0 w-full h-full z-10">
-                    {Array.from({ length: 9 }).map((_, idx) => {
-                      const isCornerOrCenter = [0, 2, 4, 6, 8].includes(idx);
-                      const isHovered = hoveredIndex === idx;
-                      const col = idx % 3;
-                      const row = Math.floor(idx / 3);
-
-                      // Absolute coordinates corresponding to the 18%, 50%, 82% lines
-                      const leftPos =
-                        col === 0 ? "5%" : col === 1 ? "37%" : "69%";
-                      const topPos =
-                        row === 0 ? "5%" : row === 1 ? "37%" : "69%";
-
-                      return (
-                        <motion.div
-                          key={idx}
-                          onMouseEnter={() => setHoveredIndex(idx)}
-                          onMouseLeave={() => setHoveredIndex(null)}
-                          className={`absolute w-[26%] h-[26%] rounded-2xl flex items-center justify-center cursor-pointer transition-all duration-300 border ${isHovered
-                            ? "bg-white border-blue-300 shadow-[0_0_20px_rgba(59,130,246,0.15)]"
-                            : "bg-gray-50/75 border-gray-200 hover:border-gray-300"
-                            }`}
-                          style={{
-                            left: leftPos,
-                            top: topPos,
-                          }}
-                          whileHover={{ scale: 1.08, y: -2 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 17,
-                          }}
-                        >
-                          {/* Centered Node Dot */}
-                          <div className="relative flex items-center justify-center">
-                            <div
-                              className={`size-3 sm:size-3.5 rounded-full transition-all duration-300 ${isHovered ||
-                                (hoveredIndex === null && isCornerOrCenter)
-                                ? "bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.65)] scale-110"
-                                : "bg-blue-300/50"
-                                }`}
-                            />
-                            {/* Pulse ripple for active nodes */}
-                            {(isHovered ||
-                              (hoveredIndex === null && isCornerOrCenter)) && (
-                                <span className="absolute inset-0 rounded-full bg-blue-400/30 animate-ping pointer-events-none scale-150" />
-                              )}
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+            {/* Top row: User, Company */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-start justify-center gap-24 md:gap-32">
+              <CircleNode ref={userRef} label="User">
+                <User className={ICON_CLASS} />
+              </CircleNode>
+              <CircleNode ref={companyRef} label="Company">
+                <Building2 className={ICON_CLASS} />
+              </CircleNode>
             </div>
+
+            {/* Middle row: Product — CENTER LOGO — Services */}
+            <div className="flex items-center justify-center gap-20 md:gap-32">
+              <CircleNode ref={productRef} label="Product">
+                <Package className={ICON_CLASS} />
+              </CircleNode>
+
+              <CenterNode ref={centerRef}>
+                <Image
+                  src="/logo.png"
+                  alt="AssoXiate Logo"
+                  width={48}
+                  height={48}
+                  className="size-12 object-contain"
+                />
+              </CenterNode>
+
+              <CircleNode ref={servicesRef} label="Services">
+                <Wrench className={ICON_CLASS} />
+              </CircleNode>
+            </div>
+
+            {/* Bottom row: Job, Connection */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-end justify-center gap-24 md:gap-32">
+              <CircleNode ref={jobRef} label="Job">
+                <Briefcase className={ICON_CLASS} />
+              </CircleNode>
+              <CircleNode ref={connectionRef} label="Connection">
+                <Link2 className={ICON_CLASS} />
+              </CircleNode>
+            </div>
+
+            {/* ── Animated Beams (center → each node) ── */}
+
+            {/* User */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={centerRef}
+              toRef={userRef}
+              curvature={-40}
+              duration={4}
+              delay={0}
+              gradientStartColor="#e5e5e5"
+              gradientStopColor="#737373"
+              pathColor="#d4d4d4"
+            />
+
+            {/* Company */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={centerRef}
+              toRef={companyRef}
+              curvature={40}
+              duration={4}
+              delay={0.4}
+              gradientStartColor="#e5e5e5"
+              gradientStopColor="#737373"
+              pathColor="#d4d4d4"
+            />
+
+            {/* Product (left) */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={centerRef}
+              toRef={productRef}
+              curvature={0}
+              duration={4}
+              delay={0.8}
+              gradientStartColor="#e5e5e5"
+              gradientStopColor="#737373"
+              pathColor="#d4d4d4"
+            />
+
+            {/* Services (right) */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={centerRef}
+              toRef={servicesRef}
+              curvature={0}
+              duration={4}
+              delay={1.2}
+              reverse
+              gradientStartColor="#e5e5e5"
+              gradientStopColor="#737373"
+              pathColor="#d4d4d4"
+            />
+
+            {/* Job */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={centerRef}
+              toRef={jobRef}
+              curvature={40}
+              duration={4}
+              delay={1.6}
+              reverse
+              gradientStartColor="#e5e5e5"
+              gradientStopColor="#737373"
+              pathColor="#d4d4d4"
+            />
+
+            {/* Connection */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={centerRef}
+              toRef={connectionRef}
+              curvature={-40}
+              duration={4}
+              delay={2.0}
+              reverse
+              gradientStartColor="#e5e5e5"
+              gradientStopColor="#737373"
+              pathColor="#d4d4d4"
+            />
           </div>
         </div>
       </div>
