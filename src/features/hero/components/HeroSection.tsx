@@ -2,12 +2,12 @@
 
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Astroid, Sparkles } from "lucide-react";
 import { NetworkGlobe } from "./NetworkGlobe";
 import { HERO_STATS } from "../constants/hero.constants";
 import dynamic from "next/dynamic";
 import { useRef, useState, useEffect } from "react";
-import ShinyText from "@/components/animation/ShinyText";
+import { AnimatedBadge } from "@/components/animation/ShinyText";
 
 // Lazy-load NetworkNodes — heavy component with many motion elements
 const NetworkNodes = dynamic(
@@ -59,18 +59,11 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-start text-left max-w-xl"
           >
-            <ShinyText
-              text="✨ Next Generation Professional Network"
-              speed={2}
-              delay={0}
-              color="#193CB8"
-              shineColor="#8EC5FF"
-              spread={120}
-              direction="left"
-              yoyo={false}
-              pauseOnHover={false}
-              disabled={false}
-              className="mb-3"
+            <AnimatedBadge
+              icon={Sparkles}
+              text="AI Powered Platform"
+              iconClassName="text-blue-500"
+              textClassName="text-gray-500"
             />
 
             <h1 className="h2 text-white">
