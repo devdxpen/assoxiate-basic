@@ -1,39 +1,34 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-
 const poppins = Poppins({
-	variable: "--font-poppins",
-	subsets: ["latin"],
-	weight: ["400", "500", "600", "700", "800"],
-	display: "swap",
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-	title: "Assxiate | Pure Professional",
-	description: "A dynamic platform where professionals find opportunities.",
+  title: "Assxiate | Pure Professional",
+  description: "A dynamic platform where professionals find opportunities.",
 };
 
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { SmoothScroll } from "@/components/animation/SmoothScroll";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html
-			lang="en"
-			className={cn("dark", "antialiased", poppins.variable, "font-sans", inter.variable)}
-		>
-			<body className="min-h-screen flex flex-col font-sans bg-white text-foreground">
-				<SmoothScroll />
-				<TooltipProvider>{children}</TooltipProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className={`${poppins.className} typography relative`}>
+        <TooltipProvider>
+          <SmoothScroll />
+          {children}
+        </TooltipProvider>
+      </body>
+    </html>
+  );
 }

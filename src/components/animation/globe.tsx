@@ -91,7 +91,15 @@ export function Globe({ globeConfig, data }: WorldProps) {
 				const countries = countriesModule.default ?? countriesModule;
 
 				// ── Setup renderer via Three.js directly (avoid fiber overhead) ──
+				let canvas: HTMLCanvasElement;
+				try {
+					canvas = document.createElement("canvas");
+				} catch (e) {
+					return;
+				}
+
 				const renderer = new THREE.WebGLRenderer({
+					canvas,
 					antialias: false,
 					alpha: true,
 					powerPreference: "low-power",
@@ -304,6 +312,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 					window.removeEventListener("mousemove", onMouseMove);
 					window.removeEventListener("mouseup", onMouseUp);
 					renderer.dispose();
+					renderer.forceContextLoss();
 					if (container.contains(renderer.domElement)) {
 						container.removeChild(renderer.domElement);
 					}
