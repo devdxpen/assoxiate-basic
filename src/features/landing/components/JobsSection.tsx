@@ -80,16 +80,19 @@ function CategoryCard({ name, count, icon }: CategoryCardProps) {
   return (
     <CardContainer
       containerClassName="h-full"
-      className="h-full w-[300px] border border-gray-700 bg-gray-950 p-6 rounded-2xl"
+      className="w-[300px] h-full rounded-2xl border border-gray-700 bg-gray-950 p-6"
     >
-      <CardBody className="h-full w-full flex gap-4 items-center">
+      <CardBody className="flex h-full items-center gap-4">
         <CardItem
           translateZ={30}
-          className="flex h-16! w-16! items-center justify-center rounded-xl border border-gray-700 bg-black"
+          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-gray-700 bg-black"
         >
-          {icon}
+          <div className="flex h-8 w-8 items-center justify-center text-white">
+            {icon}
+          </div>
         </CardItem>
-        <CardItem translateZ={50} className="text-2xl font-medium block w-full">
+
+        <CardItem translateZ={50} className="w-full">
           <h3 className="h5 text-white">{name}</h3>
           <p className="mt-1 text-sm text-gray-300">{count}</p>
         </CardItem>
