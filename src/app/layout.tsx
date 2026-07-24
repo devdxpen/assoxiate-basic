@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 };
 
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SmoothScroll } from "@/components/animation/SmoothScroll";
 
 export default function RootLayout({
   children,
@@ -28,14 +29,14 @@ export default function RootLayout({
       lang="en"
       className={cn(
         "dark",
-        "h-full",
         "antialiased",
         poppins.variable,
         "font-sans",
         inter.variable,
       )}
     >
-      <body className="min-h-full flex flex-col font-sans bg-white text-foreground">
+      <body className="min-h-screen flex flex-col font-sans bg-white text-foreground">
+        <SmoothScroll />
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

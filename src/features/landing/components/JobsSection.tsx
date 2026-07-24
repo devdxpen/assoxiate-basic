@@ -100,7 +100,7 @@ function CategoryCard({ name, count, icon }: CategoryCardProps) {
 
 export function JobsSection() {
   return (
-    <section className="py-20 overflow-hidden container-custom ">
+    <section id="jobs" className="py-20 overflow-hidden container-custom ">
       <div className="bg-black p-20 rounded-2xl overflow-hidden">
         <div className=" mb-12  flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">

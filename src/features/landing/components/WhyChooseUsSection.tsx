@@ -67,7 +67,7 @@ const features = [
 
 export function WhyChooseUsSection() {
   return (
-    <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
+    <AnimatedSection id="solutions" className="relative overflow-hidden py-20 lg:py-28">
       <div className="container-custom">
         <Heading
           align="start"
