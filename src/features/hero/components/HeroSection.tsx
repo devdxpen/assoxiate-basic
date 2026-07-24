@@ -63,8 +63,8 @@ export function HeroSection() {
               text="✨ Next Generation Professional Network"
               speed={2}
               delay={0}
-              color="#525252"
-              shineColor="#ffffff"
+              color="#193CB8"
+              shineColor="#8EC5FF"
               spread={120}
               direction="left"
               yoyo={false}
