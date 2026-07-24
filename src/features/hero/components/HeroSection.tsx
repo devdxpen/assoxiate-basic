@@ -76,7 +76,7 @@ export function HeroSection() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button size="lg" variant="white">
+              <Button size="xl"  variant="white">
                 Get Started
                 <ArrowRight className="size-4 ml-2" strokeWidth={2} />
               </Button>
