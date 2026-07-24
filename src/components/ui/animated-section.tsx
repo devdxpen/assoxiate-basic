@@ -13,8 +13,8 @@ interface AnimatedSectionProps {
 
 export function AnimatedSection({ children, className, delay = 0, id }: AnimatedSectionProps) {
 	const ref = useRef<HTMLDivElement>(null);
-	// margin: "0px" — fires as soon as ANY part of element enters viewport
-	const isInView = useInView(ref, { once: true, margin: "0px" });
+	// margin: "-50px" — fires when 50px of element is inside viewport (avoids premature trigger)
+	const isInView = useInView(ref, { once: true, margin: "-50px" });
 
 	return (
 		<motion.section

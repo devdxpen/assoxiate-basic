@@ -78,14 +78,14 @@ export function Globe({ globeConfig, data }: WorldProps) {
 		let cancelled = false;
 
 		// Dynamic import — Three.js only loaded when this component mounts
+		// NOTE: @react-three/fiber and @react-three/drei are intentionally NOT imported
+		// because we use raw Three.js WebGLRenderer for lower overhead.
 		Promise.all([
 			import("three"),
 			import("three-globe"),
-			import("@react-three/fiber"),
-			import("@react-three/drei"),
 			import("@/data/globe.json"),
 		])
-			.then(([THREE, { default: ThreeGlobe }, { Canvas }, { OrbitControls }, countriesModule]) => {
+			.then(([THREE, { default: ThreeGlobe }, countriesModule]) => {
 				if (cancelled || !container) return;
 
 				const countries = countriesModule.default ?? countriesModule;
@@ -96,7 +96,8 @@ export function Globe({ globeConfig, data }: WorldProps) {
 					alpha: true,
 					powerPreference: "low-power",
 				});
-				renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+				// Cap at 1.0 — prevents 4× pixel fill on Retina/HiDPI without visible quality loss
+				renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.0));
 				renderer.setSize(container.clientWidth, container.clientHeight);
 				renderer.setClearColor(0x000000, 0);
 				container.appendChild(renderer.domElement);
@@ -269,16 +270,28 @@ export function Globe({ globeConfig, data }: WorldProps) {
 				const resizeObs = new ResizeObserver(onResize);
 				resizeObs.observe(container);
 
-				// Render loop
+				// Render loop — paused when tab is hidden to save CPU/GPU
 				let animId: number;
+				let isPaused = false;
 				const autoSpeed = (globeConfig.autoRotateSpeed || 0.8) * 0.002;
 				const animate = () => {
 					if (cancelled) return;
+					if (isPaused) return;
 					animId = requestAnimationFrame(animate);
 					if (!isDragging && globeConfig.autoRotate !== false) rotY += autoSpeed;
 					group.rotation.y = rotY;
 					renderer.render(scene, camera);
 				};
+				const onVisibilityChange = () => {
+					if (document.hidden) {
+						isPaused = true;
+						cancelAnimationFrame(animId);
+					} else {
+						isPaused = false;
+						animate();
+					}
+				};
+				document.addEventListener("visibilitychange", onVisibilityChange);
 				animate();
 
 				cleanupRef.current = () => {
@@ -286,6 +299,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
 					cancelAnimationFrame(animId);
 					clearInterval(ringInterval);
 					resizeObs.disconnect();
+					document.removeEventListener("visibilitychange", onVisibilityChange);
 					renderer.domElement.removeEventListener("mousedown", onMouseDown);
 					window.removeEventListener("mousemove", onMouseMove);
 					window.removeEventListener("mouseup", onMouseUp);

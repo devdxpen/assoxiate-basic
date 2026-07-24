@@ -4,6 +4,50 @@ import { cn } from "@/lib/utils";
 import { animate } from "motion/react";
 import { memo, useCallback, useEffect, useRef } from "react";
 
+// ─── Shared global pointer state ──────────────────────────────────────────────
+// Previously each GlowingEffect card added its own pointermove+scroll listener
+// to document.body, leading to N×listeners (e.g. 6 on WhyChooseUs section).
+// Now we maintain ONE shared module-level event and distribute to subscribers.
+// ─────────────────────────────────────────────────────────────────────────────
+
+type MoveHandler = (x: number, y: number) => void;
+
+const subscribers = new Set<MoveHandler>();
+let globalListenerActive = false;
+
+function addGlobalSubscriber(fn: MoveHandler) {
+	subscribers.add(fn);
+	if (!globalListenerActive) {
+		globalListenerActive = true;
+		window.addEventListener("pointermove", onGlobalPointerMove, { passive: true });
+		window.addEventListener("scroll", onGlobalScroll, { passive: true });
+	}
+}
+
+function removeGlobalSubscriber(fn: MoveHandler) {
+	subscribers.delete(fn);
+	if (subscribers.size === 0 && globalListenerActive) {
+		globalListenerActive = false;
+		window.removeEventListener("pointermove", onGlobalPointerMove);
+		window.removeEventListener("scroll", onGlobalScroll);
+	}
+}
+
+let lastX = 0;
+let lastY = 0;
+
+function onGlobalPointerMove(e: PointerEvent) {
+	lastX = e.clientX;
+	lastY = e.clientY;
+	for (const fn of subscribers) fn(lastX, lastY);
+}
+
+function onGlobalScroll() {
+	for (const fn of subscribers) fn(lastX, lastY);
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export interface GlowingEffectProps {
 	blur?: number;
 	inactiveZone?: number;
@@ -35,7 +79,7 @@ const GlowingEffect = memo(
 		const animationFrameRef = useRef<number>(0);
 
 		const handleMove = useCallback(
-			(e?: MouseEvent | { x: number; y: number }) => {
+			(x: number, y: number) => {
 				if (!containerRef.current) return;
 
 				if (animationFrameRef.current) {
@@ -47,15 +91,10 @@ const GlowingEffect = memo(
 					if (!element) return;
 
 					const { left, top, width, height } = element.getBoundingClientRect();
-					const mouseX = e?.x ?? lastPosition.current.x;
-					const mouseY = e?.y ?? lastPosition.current.y;
-
-					if (e) {
-						lastPosition.current = { x: mouseX, y: mouseY };
-					}
+					lastPosition.current = { x, y };
 
 					const center = [left + width * 0.5, top + height * 0.5];
-					const distanceFromCenter = Math.hypot(mouseX - center[0], mouseY - center[1]);
+					const distanceFromCenter = Math.hypot(x - center[0], y - center[1]);
 					const inactiveRadius = 0.5 * Math.min(width, height) * inactiveZone;
 
 					if (distanceFromCenter < inactiveRadius) {
@@ -64,10 +103,10 @@ const GlowingEffect = memo(
 					}
 
 					const isActive =
-						mouseX > left - proximity &&
-						mouseX < left + width + proximity &&
-						mouseY > top - proximity &&
-						mouseY < top + height + proximity;
+						x > left - proximity &&
+						x < left + width + proximity &&
+						y > top - proximity &&
+						y < top + height + proximity;
 
 					element.style.setProperty("--active", isActive ? "1" : "0");
 
@@ -75,7 +114,7 @@ const GlowingEffect = memo(
 
 					const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
 					const targetAngle =
-						(180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
+						(180 * Math.atan2(y - center[1], x - center[0])) / Math.PI + 90;
 
 					const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
 					const newAngle = currentAngle + angleDiff;
@@ -95,20 +134,14 @@ const GlowingEffect = memo(
 		useEffect(() => {
 			if (disabled) return;
 
-			const handleScroll = () => handleMove();
-			const handlePointerMove = (e: PointerEvent) => handleMove(e);
-
-			window.addEventListener("scroll", handleScroll, { passive: true });
-			document.body.addEventListener("pointermove", handlePointerMove, {
-				passive: true,
-			});
+			const subscriber: MoveHandler = (x, y) => handleMove(x, y);
+			addGlobalSubscriber(subscriber);
 
 			return () => {
 				if (animationFrameRef.current) {
 					cancelAnimationFrame(animationFrameRef.current);
 				}
-				window.removeEventListener("scroll", handleScroll);
-				document.body.removeEventListener("pointermove", handlePointerMove);
+				removeGlobalSubscriber(subscriber);
 			};
 		}, [handleMove, disabled]);
 

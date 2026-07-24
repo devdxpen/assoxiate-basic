@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
 		],
 	},
 	experimental: {
-		preloadEntriesOnStart: false,
+		preloadEntriesOnStart: true,
 		// Tree-shake icon libraries — only import used icons instead of entire lib
 		optimizePackageImports: ["lucide-react", "@tabler/icons-react", "motion"],
 	},

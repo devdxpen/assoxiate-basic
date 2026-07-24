@@ -35,6 +35,16 @@ export function SmoothScroll() {
 				gsap.ticker.add(tickerCallback);
 				gsap.ticker.lagSmoothing(0);
 
+				// Pause GSAP ticker when tab is hidden — stops 60fps RAF when user isn't looking
+				const onVisibilityChange = () => {
+					if (document.hidden) {
+						gsap.ticker.sleep();
+					} else {
+						gsap.ticker.wake();
+					}
+				};
+				document.addEventListener("visibilitychange", onVisibilityChange);
+
 				const resizeObserver = new ResizeObserver(() => {
 					lenis.resize();
 					ScrollTrigger.refresh();
@@ -44,6 +54,7 @@ export function SmoothScroll() {
 
 				cleanup = () => {
 					gsap.ticker.remove(tickerCallback);
+					document.removeEventListener("visibilitychange", onVisibilityChange);
 					lenis.destroy();
 					lenisInstance = null;
 					resizeObserver.disconnect();
