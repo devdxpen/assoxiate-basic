@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -330,12 +331,40 @@ function ProductTooltipContent({
 }
 
 export function NetworkNodes() {
+	const nodes = useMemo(() => {
+		return NETWORK_NODES.map((node, i) => {
+			// Distribute nodes roughly in 4 quadrants but with random offsets
+			const angleBase = (i * Math.PI) / 2;
+			// Random angle within the quadrant (15 to 75 degrees offset)
+			const angleOffset = (15 + Math.random() * 60) * (Math.PI / 180);
+			const angle = angleBase + angleOffset;
+
+			// Radius between 38% and 46% to stay within container but outside globe
+			const radius = 38 + Math.random() * 8;
+			const x = 50 + radius * Math.cos(angle);
+			const y = 50 + radius * Math.sin(angle);
+
+			// Line end at the edge of the globe (approx 22% radius)
+			const globeRadius = 22;
+			const lineX2 = 50 + globeRadius * Math.cos(angle);
+			const lineY2 = 50 + globeRadius * Math.sin(angle);
+
+			return {
+				data: node,
+				x,
+				y,
+				lineX2,
+				lineY2,
+			};
+		});
+	}, []);
+
 	return (
 		<TooltipProvider delay={100}>
 			<div className="absolute inset-0 pointer-events-none z-20">
 				{/* SVG connecting lines */}
 				<svg
-					className="absolute inset-0 w-full h-full pointer-events-none opacity-25"
+					className="absolute inset-0 w-full h-full pointer-events-none opacity-30"
 					aria-hidden="true"
 				>
 					<defs>
@@ -344,46 +373,30 @@ export function NetworkNodes() {
 							<stop offset="100%" stopColor="#3b82f6" stopOpacity="0.1" />
 						</linearGradient>
 					</defs>
-					<line
-						x1="14%"
-						y1="18%"
-						x2="35%"
-						y2="35%"
-						stroke="url(#nodeLineGrad)"
-						strokeWidth="1"
-						strokeDasharray="3 3"
-					/>
-					<line
-						x1="84%"
-						y1="20%"
-						x2="65%"
-						y2="35%"
-						stroke="url(#nodeLineGrad)"
-						strokeWidth="1"
-						strokeDasharray="3 3"
-					/>
-					<line
-						x1="84%"
-						y1="78%"
-						x2="65%"
-						y2="65%"
-						stroke="url(#nodeLineGrad)"
-						strokeWidth="1"
-						strokeDasharray="3 3"
-					/>
-					<line
-						x1="16%"
-						y1="76%"
-						x2="35%"
-						y2="65%"
-						stroke="url(#nodeLineGrad)"
-						strokeWidth="1"
-						strokeDasharray="3 3"
-					/>
+
+					{nodes.map((node) => (
+						<motion.line
+							key={`line-${node.data.id}`}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 1, delay: node.data.delay, ease: "easeOut" }}
+							x1={`${node.x}%`}
+							y1={`${node.y}%`}
+							x2={`${node.lineX2}%`}
+							y2={`${node.lineY2}%`}
+							stroke="url(#nodeLineGrad)"
+							strokeWidth="1"
+							strokeDasharray="3 3"
+						/>
+					))}
 				</svg>
 
-				{NETWORK_NODES.map((node, i) => (
-					<SingleNetworkNode key={node.id} data={node} index={i} />
+				{nodes.map((node, i) => (
+					<SingleNetworkNode
+						key={node.data.id}
+						data={{ ...node.data, position: { left: `${node.x}%`, top: `${node.y}%` } }}
+						index={i}
+					/>
 				))}
 			</div>
 		</TooltipProvider>
