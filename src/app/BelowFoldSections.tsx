@@ -71,27 +71,6 @@ const Footer = dynamic(
   },
 );
 export function BelowFoldSections() {
-  const [mounted, setMounted] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const mount = () => setMounted(true);
-
-    if ("requestIdleCallback" in window) {
-      const id = requestIdleCallback(mount, { timeout: 1500 });
-      return () => cancelIdleCallback(id);
-    } else {
-      const id = setTimeout(mount, 200);
-      return () => clearTimeout(id);
-    }
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div ref={sentinelRef} className="min-h-screen" aria-hidden="true" />
-    );
-  }
-
   return (
     <>
       <WhyChooseUsSection />
