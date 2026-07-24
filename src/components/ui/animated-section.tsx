@@ -5,36 +5,31 @@ import { motion, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface AnimatedSectionProps {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  id?: string;
+	children: React.ReactNode;
+	className?: string;
+	delay?: number;
+	id?: string;
 }
 
-export function AnimatedSection({
-  children,
-  className,
-  delay = 0,
-  id,
-}: AnimatedSectionProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  // margin: "0px" — fires as soon as ANY part of element enters viewport
-  const isInView = useInView(ref, { once: true, margin: "0px" });
+export function AnimatedSection({ children, className, delay = 0, id }: AnimatedSectionProps) {
+	const ref = useRef<HTMLDivElement>(null);
+	// margin: "0px" — fires as soon as ANY part of element enters viewport
+	const isInView = useInView(ref, { once: true, margin: "0px" });
 
-  return (
-    <motion.section
-      ref={ref}
-      id={id}
-      initial={{ opacity: 0, y: 24 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-      transition={{
-        duration: 0.5,
-        delay,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className={cn(className)}
-    >
-      {children}
-    </motion.section>
-  );
+	return (
+		<motion.section
+			ref={ref}
+			id={id}
+			initial={{ opacity: 0, y: 24 }}
+			animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+			transition={{
+				duration: 0.5,
+				delay,
+				ease: [0.16, 1, 0.3, 1],
+			}}
+			className={cn(className)}
+		>
+			{children}
+		</motion.section>
+	);
 }
