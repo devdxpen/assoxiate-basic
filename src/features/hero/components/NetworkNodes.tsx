@@ -1,47 +1,46 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  User,
-  Briefcase,
-  Building2,
-  Package,
-  MapPin,
-  CheckCircle2,
-  Star,
-  Users,
-  Tag,
-  DollarSign,
-} from "lucide-react";
 import {
   Avatar,
   AvatarFallback,
-  AvatarImage,
-  AvatarBadge,
+  AvatarImage
 } from "@/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
   TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Briefcase,
+  Building2,
+  CheckCircle2,
+  DollarSign,
+  MapPin,
+  Package,
+  Tag,
+  User,
+  Users
+} from "lucide-react";
+// Entry animation only — no infinite JS-driven motion loop
+import { motion } from "motion/react";
 import { NETWORK_NODES } from "../constants/hero.constants";
 import {
-  NetworkNodeData,
-  UserNodeData,
-  JobNodeData,
   CompanyNodeData,
+  JobNodeData,
+  NetworkNodeData,
   ProductNodeData,
+  UserNodeData,
 } from "../types/hero.types";
 
 interface NodeProps {
   data: NetworkNodeData;
+  index: number;
 }
 
-function SingleNetworkNode({ data }: NodeProps) {
+function SingleNetworkNode({ data, index }: NodeProps) {
   const { type, position, delay } = data;
 
-  // Node specific styles & icons
   const getNodeConfig = () => {
     switch (type) {
       case "user":
@@ -86,27 +85,26 @@ function SingleNetworkNode({ data }: NodeProps) {
   const config = getNodeConfig();
   const BadgeIconComponent = config.BadgeIcon;
 
+  // CSS animation class — each node gets a staggered delay via inline style
+  // This replaces 8 JS-driven RAF motion.div float loops with pure CSS
+  const floatDuration = 4 + (index % 3) * 0.8; // slight variation per node
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.85, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: delay, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay: delay, ease: "easeOut" }}
       className="absolute z-20 -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
       style={{
         left: position.left,
         top: position.top,
       }}
     >
-      <motion.div
-        animate={{
-          y: [0, -6, 0],
-        }}
-        transition={{
-          duration: 4.5,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay: delay,
+      {/* CSS float animation — zero JS cost at runtime vs motion infinite loop */}
+      <div
+        style={{
+          animation: `nodeFloat ${floatDuration}s ease-in-out infinite`,
+          animationDelay: `${delay}s`,
         }}
       >
         <Tooltip>
@@ -160,27 +158,18 @@ function SingleNetworkNode({ data }: NodeProps) {
             {type === "product" && <ProductTooltipContent data={data} tagBg={config.tagBg} tagLabel={config.tagLabel} />}
           </TooltipContent>
         </Tooltip>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
 
-// 1. User Profile Tooltip Content
-function UserTooltipContent({
-  data,
-  tagBg,
-  tagLabel,
-}: {
-  data: UserNodeData;
-  tagBg: string;
-  tagLabel: string;
-}) {
+// ─── Tooltip Content Components ───────────────────────────────────────────────
+
+function UserTooltipContent({ data, tagBg, tagLabel }: { data: UserNodeData; tagBg: string; tagLabel: string }) {
   return (
     <div className="flex flex-col text-left space-y-1.5">
       <div className="flex items-center justify-between gap-2">
-        <span
-          className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}
-        >
+        <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}>
           <User className="size-3" />
           {tagLabel}
         </span>
@@ -191,16 +180,10 @@ function UserTooltipContent({
           </span>
         )}
       </div>
-
       <div>
-        <h4 className="font-bold text-xs text-white leading-snug">
-          {data.name}
-        </h4>
-        <p className="text-[11px] font-medium text-neutral-300 leading-tight">
-          {data.designation}
-        </p>
+        <h4 className="font-bold text-xs text-white leading-snug">{data.name}</h4>
+        <p className="text-[11px] font-medium text-neutral-300 leading-tight">{data.designation}</p>
       </div>
-
       <div className="flex items-center gap-1 text-[10px] text-neutral-400 font-medium pt-0.5 border-t border-neutral-800/80">
         <MapPin className="size-3 text-neutral-500 shrink-0" />
         <span className="truncate">{data.location}</span>
@@ -209,22 +192,11 @@ function UserTooltipContent({
   );
 }
 
-// 2. Job Hiring Tooltip Content
-function JobTooltipContent({
-  data,
-  tagBg,
-  tagLabel,
-}: {
-  data: JobNodeData;
-  tagBg: string;
-  tagLabel: string;
-}) {
+function JobTooltipContent({ data, tagBg, tagLabel }: { data: JobNodeData; tagBg: string; tagLabel: string }) {
   return (
     <div className="flex flex-col text-left space-y-1.5">
       <div className="flex items-center justify-between gap-2">
-        <span
-          className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}
-        >
+        <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}>
           <Briefcase className="size-3" />
           {tagLabel}
         </span>
@@ -234,16 +206,10 @@ function JobTooltipContent({
           </span>
         )}
       </div>
-
       <div>
-        <h4 className="font-bold text-xs text-white leading-snug">
-          {data.jobTitle}
-        </h4>
-        <p className="text-[11px] font-medium text-emerald-300 leading-tight">
-          {data.companyName}
-        </p>
+        <h4 className="font-bold text-xs text-white leading-snug">{data.jobTitle}</h4>
+        <p className="text-[11px] font-medium text-emerald-300 leading-tight">{data.companyName}</p>
       </div>
-
       <div className="space-y-1 pt-0.5 border-t border-neutral-800/80 text-[10px]">
         <div className="flex items-center justify-between text-neutral-300 font-medium">
           <span className="inline-flex items-center gap-1">
@@ -261,22 +227,11 @@ function JobTooltipContent({
   );
 }
 
-// 3. Company Profile Tooltip Content
-function CompanyTooltipContent({
-  data,
-  tagBg,
-  tagLabel,
-}: {
-  data: CompanyNodeData;
-  tagBg: string;
-  tagLabel: string;
-}) {
+function CompanyTooltipContent({ data, tagBg, tagLabel }: { data: CompanyNodeData; tagBg: string; tagLabel: string }) {
   return (
     <div className="flex flex-col text-left space-y-1.5">
       <div className="flex items-center justify-between gap-2">
-        <span
-          className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}
-        >
+        <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}>
           <Building2 className="size-3" />
           {tagLabel}
         </span>
@@ -287,16 +242,10 @@ function CompanyTooltipContent({
           </span>
         )}
       </div>
-
       <div>
-        <h4 className="font-bold text-xs text-white leading-snug flex items-center gap-1">
-          {data.companyName}
-        </h4>
-        <p className="text-[11px] font-medium text-neutral-300 leading-tight">
-          {data.industry}
-        </p>
+        <h4 className="font-bold text-xs text-white leading-snug flex items-center gap-1">{data.companyName}</h4>
+        <p className="text-[11px] font-medium text-neutral-300 leading-tight">{data.industry}</p>
       </div>
-
       <div className="space-y-0.5 pt-0.5 border-t border-neutral-800/80 text-[10px] text-neutral-400">
         <div className="flex items-center gap-1">
           <Users className="size-3 text-neutral-500 shrink-0" />
@@ -311,22 +260,11 @@ function CompanyTooltipContent({
   );
 }
 
-// 4. Product Tooltip Content
-function ProductTooltipContent({
-  data,
-  tagBg,
-  tagLabel,
-}: {
-  data: ProductNodeData;
-  tagBg: string;
-  tagLabel: string;
-}) {
+function ProductTooltipContent({ data, tagBg, tagLabel }: { data: ProductNodeData; tagBg: string; tagLabel: string }) {
   return (
     <div className="flex flex-col text-left space-y-1.5">
       <div className="flex items-center justify-between gap-2">
-        <span
-          className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}
-        >
+        <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagBg}`}>
           <Package className="size-3" />
           {tagLabel}
         </span>
@@ -334,20 +272,14 @@ function ProductTooltipContent({
           {data.rating}
         </span>
       </div>
-
       <div>
-        <h4 className="font-bold text-xs text-white leading-snug">
-          {data.productName}
-        </h4>
-        <p className="text-[11px] font-medium text-teal-300 leading-tight">
-          {data.category}
-        </p>
+        <h4 className="font-bold text-xs text-white leading-snug">{data.productName}</h4>
+        <p className="text-[11px] font-medium text-teal-300 leading-tight">{data.category}</p>
       </div>
-
       <div className="space-y-0.5 pt-0.5 border-t border-neutral-800/80 text-[10px]">
         {data.tagline && (
           <p className="text-neutral-400 italic text-[10px] leading-tight">
-            "{data.tagline}"
+            &ldquo;{data.tagline}&rdquo;
           </p>
         )}
         <div className="flex items-center gap-1 text-teal-400 font-semibold pt-0.5">
@@ -363,63 +295,25 @@ export function NetworkNodes() {
   return (
     <TooltipProvider delay={100}>
       <div className="absolute inset-0 pointer-events-none z-20">
-        {/* Subtle Tech Connecting Lines SVG connecting floating nodes toward globe area */}
+        {/* SVG connecting lines */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none opacity-25"
           aria-hidden="true"
         >
           <defs>
-            <linearGradient
-              id="nodeLineGrad"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="100%"
-            >
+            <linearGradient id="nodeLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.8" />
               <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.1" />
             </linearGradient>
           </defs>
-          <line
-            x1="14%"
-            y1="18%"
-            x2="35%"
-            y2="35%"
-            stroke="url(#nodeLineGrad)"
-            strokeWidth="1"
-            strokeDasharray="3 3"
-          />
-          <line
-            x1="84%"
-            y1="20%"
-            x2="65%"
-            y2="35%"
-            stroke="url(#nodeLineGrad)"
-            strokeWidth="1"
-            strokeDasharray="3 3"
-          />
-          <line
-            x1="84%"
-            y1="78%"
-            x2="65%"
-            y2="65%"
-            stroke="url(#nodeLineGrad)"
-            strokeWidth="1"
-            strokeDasharray="3 3"
-          />
-          <line
-            x1="16%"
-            y1="76%"
-            x2="35%"
-            y2="65%"
-            stroke="url(#nodeLineGrad)"
-            strokeWidth="1"
-            strokeDasharray="3 3"
-          />
+          <line x1="14%" y1="18%" x2="35%" y2="35%" stroke="url(#nodeLineGrad)" strokeWidth="1" strokeDasharray="3 3" />
+          <line x1="84%" y1="20%" x2="65%" y2="35%" stroke="url(#nodeLineGrad)" strokeWidth="1" strokeDasharray="3 3" />
+          <line x1="84%" y1="78%" x2="65%" y2="65%" stroke="url(#nodeLineGrad)" strokeWidth="1" strokeDasharray="3 3" />
+          <line x1="16%" y1="76%" x2="35%" y2="65%" stroke="url(#nodeLineGrad)" strokeWidth="1" strokeDasharray="3 3" />
         </svg>
 
-        {NETWORK_NODES.map((node) => (
-          <SingleNetworkNode key={node.id} data={node} />
+        {NETWORK_NODES.map((node, i) => (
+          <SingleNetworkNode key={node.id} data={node} index={i} />
         ))}
       </div>
     </TooltipProvider>

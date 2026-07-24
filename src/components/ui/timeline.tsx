@@ -5,7 +5,7 @@ import {
   useTransform,
   motion,
   useInView,
-} from "framer-motion";
+} from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 interface TimelineEntry {
@@ -21,7 +21,7 @@ function TimelineItem({
   index: number;
 }) {
   const itemRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(itemRef, { once: true, margin: "-100px" });
+  const isInView = useInView(itemRef, { once: true, margin: "0px" });
   const isEven = index % 2 === 0;
 
   return (

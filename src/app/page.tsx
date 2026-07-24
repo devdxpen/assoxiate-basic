@@ -1,27 +1,17 @@
+// Server Component — no "use client" — fastest possible FCP
 import { Header } from "@/components/layout/header";
 import { HeroSection } from "@/features/hero/components/HeroSection";
-import { WhyChooseUsSection } from "@/features/landing/components/WhyChooseUsSection";
-import { NetworkBanner } from "@/features/landing/components/NetworkBanner";
-import { JobsSection } from "@/features/landing/components/JobsSection";
-import { ProfessionalsSection } from "@/features/landing/components/ProfessionalsSection";
-import { ArticlesSection } from "@/features/landing/components/ArticlesSection";
-import { TestimonialsSection } from "@/features/landing/components/TestimonialsSection";
-import { CTASection } from "@/features/landing/components/CTASection";
-import { Footer } from "@/components/layout/footer";
+import { BelowFoldSections } from "./BelowFoldSections";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
+      {/* Above-fold — server-rendered for fastest FCP/LCP */}
       <Header />
       <HeroSection />
-      <WhyChooseUsSection />
-      <NetworkBanner />
-      <JobsSection />
-      <ProfessionalsSection />
-      <ArticlesSection />
-      <TestimonialsSection />
-      <CTASection />
-      <Footer />
+
+      {/* Below-fold — client-side lazy loaded via BelowFoldSections */}
+      <BelowFoldSections />
     </main>
   );
 }

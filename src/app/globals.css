@@ -344,3 +344,14 @@
     transform: scale(1);
   }
 }
+
+/* ── NetworkNode float animation ── */
+/* Replaces JS motion.div infinite loops — runs on compositor thread (zero JS cost) */
+@keyframes nodeFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}

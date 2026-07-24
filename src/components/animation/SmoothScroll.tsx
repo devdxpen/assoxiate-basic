@@ -1,64 +1,60 @@
 "use client";
 
-import { gsap } from "gsap";
-import Lenis from "lenis";
 import { useEffect } from "react";
 
-import type { ScrollTrigger as ScrollTriggerType } from "gsap/ScrollTrigger";
+// ─── Global lenis reference — accessed without importing lenis at module level ─
+let lenisInstance: { resize: () => void } | null = null;
 
-// Global variable to store lenis instance
-let lenisInstance: Lenis | null = null;
-
-// Global function to refresh scroll height
 export const refreshScrollHeight = () => {
-  if (lenisInstance) {
-    lenisInstance.resize();
-  }
+  lenisInstance?.resize();
 };
 
 export function SmoothScroll() {
   useEffect(() => {
-    let ScrollTrigger: typeof ScrollTriggerType | null = null;
-    let rafId: number | null = null;
-    let last = 0;
+    // All heavy imports are deferred inside useEffect.
+    // This prevents GSAP (~170KB) and Lenis (~30KB) from blocking the main thread.
+    let cleanup: (() => void) | null = null;
 
-    // Lazy-load plugin on client to improve tree-shaking and SSR safety
-    (async () => {
-      const mod = await import("gsap/ScrollTrigger");
-      ScrollTrigger = mod.ScrollTrigger;
+    Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+      import("lenis"),
+    ]).then(([{ gsap }, { ScrollTrigger }, { default: Lenis }]) => {
       gsap.registerPlugin(ScrollTrigger);
-    })();
 
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => 1 - (1 - t) ** 3,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
+      const lenis = new Lenis({
+        duration: 0.9,
+        easing: (t: number) => 1 - (1 - t) ** 3,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+      });
 
-    lenisInstance = lenis;
+      lenisInstance = lenis;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      if (ScrollTrigger && time - last > 50) {
-        ScrollTrigger.update();
-        last = time;
-      }
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
+      const tickerCallback = (time: number) => {
+        lenis.raf(time * 1000);
+      };
 
-    const resizeObserver = new ResizeObserver(() => {
-      lenis.resize();
-    });
+      gsap.ticker.add(tickerCallback);
+      gsap.ticker.lagSmoothing(0);
 
-    resizeObserver.observe(document.body);
+      const resizeObserver = new ResizeObserver(() => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      });
+
+      resizeObserver.observe(document.body);
+
+      cleanup = () => {
+        gsap.ticker.remove(tickerCallback);
+        lenis.destroy();
+        lenisInstance = null;
+        resizeObserver.disconnect();
+      };
+    }).catch(console.error);
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      lenis.destroy();
-      lenisInstance = null;
-      resizeObserver.disconnect();
+      cleanup?.();
     };
   }, []);
 
