@@ -61,7 +61,7 @@ export function HeroSection() {
           >
             <AnimatedBadge
               icon={Sparkles}
-              text="AI Powered Platform"
+              text="AI Powered Professional Platform"
               iconClassName="text-blue-500"
               textClassName="text-gray-500"
             />
