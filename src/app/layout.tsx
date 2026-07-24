@@ -3,12 +3,13 @@ import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 const poppins = Poppins({
 	variable: "--font-poppins",
 	subsets: ["latin"],
 	weight: ["400", "500", "600", "700", "800"],
+	display: "swap",
 });
 
 export const metadata: Metadata = {

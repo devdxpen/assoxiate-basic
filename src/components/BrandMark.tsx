@@ -18,6 +18,7 @@ export function BrandMark({ logo = "light", className = "" }: BrandMarkProps) {
         height={40}
         className="h-10 w-auto object-contain"
         priority
+        fetchPriority="high"
       />
     </Link>
   );
