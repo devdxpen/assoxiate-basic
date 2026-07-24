@@ -7,6 +7,7 @@ import { NetworkGlobe } from "./NetworkGlobe";
 import { HERO_STATS } from "../constants/hero.constants";
 import dynamic from "next/dynamic";
 import { useRef, useState, useEffect } from "react";
+import ShinyText from "@/components/animation/ShinyText";
 
 // Lazy-load NetworkNodes — heavy component with many motion elements
 const NetworkNodes = dynamic(
@@ -58,12 +59,19 @@ export function HeroSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-start text-left max-w-xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-400 mb-6 backdrop-blur-md">
-              <Sparkles className="size-3.5 text-blue-400" />
-              <span className="text-sm">
-                Next Generation Professional Network
-              </span>
-            </div>
+            <ShinyText
+              text="✨ Next Generation Professional Network"
+              speed={2}
+              delay={0}
+              color="#525252"
+              shineColor="#ffffff"
+              spread={120}
+              direction="left"
+              yoyo={false}
+              pauseOnHover={false}
+              disabled={false}
+              className="mb-3"
+            />
 
             <h1 className="h2 text-white">
               One Platform Endless Opportunities
@@ -76,7 +84,7 @@ export function HeroSection() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button size="xl"  variant="white">
+              <Button size="xl" variant="white">
                 Get Started
                 <ArrowRight className="size-4 ml-2" strokeWidth={2} />
               </Button>
