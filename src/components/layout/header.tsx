@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import {
+  ArrowRight,
   Boxes,
   ChevronDown,
-  CreditCardIcon,
   Menu,
   SlidersHorizontal,
-  UserIcon,
+  Users,
   X,
 } from "lucide-react";
 import Link from "next/link";
@@ -39,11 +39,14 @@ const solutionDropdownItems = [
   {
     icon: SlidersHorizontal,
     title: "Services",
+    description: "Expert CA, CS & legal Advisory",
     href: "#services",
+    badge: "Popular",
   },
   {
     icon: Boxes,
-    title: "Products",
+    title: "Products & Tools",
+    description: "Compliance software & templates",
     href: "#products",
   },
 ];
@@ -54,16 +57,16 @@ export function Header() {
   const [isSolutionsOpen, setIsSolutionsOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
 
-  // Handle scroll detection for dynamic glassmorphism header styling
+  // Handle scroll state for glassmorphism header
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
+  // Close mobile menu on desktop resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -75,23 +78,17 @@ export function Header() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300 border-b",
-        isScrolled
-          ? "border-gray-200/80 bg-white/95 shadow-sm backdrop-blur-lg py-3"
-          : "border-gray-100 bg-white/80 backdrop-blur-md py-4",
-      )}
-    >
-      <div className="container-custom mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand Logo */}
-        <BrandMark
-          logo="light"
-          className="transition-transform duration-200 hover:scale-[1.02]"
-        />
+    <header className="fixed w-full top-0 z-50 transition-all duration-300 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-8 mx-auto container-custom">
+      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/70 backdrop-blur-md">
+        <div className="flex items-center gap-6">
+          <BrandMark
+            logo="light"
+            className="transition-transform duration-200 hover:scale-[1.02]"
+          />
+        </div>
         <nav
           aria-label="Main Navigation"
-          className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-wider text-gray-700 lg:flex"
+          className="hidden items-center gap-1 text-sm font-medium text-gray-600 lg:flex"
         >
           {navLinks.map((link) => {
             if (link.hasDropdown) {
@@ -103,17 +100,17 @@ export function Header() {
                 >
                   <DropdownMenuTrigger
                     className={cn(
-                      "flex items-center text-xs uppercase gap-1.5 py-2 transition hover:text-black focus:outline-none cursor-pointer",
-                      isSolutionsOpen && "text-black font-bold",
+                      "group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900 focus:outline-none cursor-pointer",
+                      isSolutionsOpen &&
+                        "bg-gray-100 text-gray-900 font-semibold",
                     )}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
                     <ChevronDown
                       className={cn(
-                        "size-3.5 transition-transform duration-200",
-                        isSolutionsOpen && "rotate-180 text-black",
+                        "size-4 text-gray-400 transition-transform duration-200 group-hover:text-gray-700",
+                        isSolutionsOpen && "rotate-180 text-gray-900",
                       )}
-                      strokeWidth={2.5}
                     />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent sideOffset={8} align="start">
@@ -144,24 +141,30 @@ export function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="py-2 transition hover:text-black"
+                className="rounded-full px-4 py-2 transition-all hover:bg-gray-100/80 hover:text-gray-900"
               >
                 {link.label}
               </Link>
             );
           })}
         </nav>
-        <div className="flex items-center gap-3">
-          <Button size="xl" variant="black">
-            Sign In
-          </Button>
-          <Button size="xl" variant="whiteGlass">
-            Join
-          </Button>
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <Link href="#signin">
+            <Button size="xl" variant="ghost">
+              Sign In
+            </Button>
+          </Link>
+
+          <Link href="#join">
+            <Button size="xl">
+              <span>Join Now</span>
+              <ArrowRight className="ml-1.5 size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Button>
+          </Link>
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="inline-flex items-center justify-center rounded-lg p-2 text-gray-700 hover:bg-gray-100 focus:outline-none lg:hidden"
+            className="inline-flex items-center justify-center rounded-xl p-2 text-gray-700 hover:bg-gray-100 focus:outline-none lg:hidden"
             aria-label="Toggle Navigation Menu"
             aria-expanded={isMobileMenuOpen}
           >
@@ -173,36 +176,34 @@ export function Header() {
           </button>
         </div>
       </div>
-
-      {/* Mobile Drawer Navigation */}
       {isMobileMenuOpen && (
-        <div className="border-t border-gray-100 bg-white/95 backdrop-blur-xl lg:hidden">
-          <div className="container-custom mx-auto px-4 py-4 space-y-3">
+        <div className="mt-2 rounded-2xl border border-gray-200/80 bg-white/95 p-4 shadow-xl backdrop-blur-2xl lg:hidden animate-in fade-in-50 slide-in-from-top-2">
+          <div className="space-y-1.5">
             {navLinks.map((link) => {
               if (link.hasDropdown) {
                 return (
                   <div
                     key={link.label}
-                    className="border-b border-gray-50 pb-2"
+                    className="rounded-xl border border-gray-100 bg-gray-50/50 p-2.5"
                   >
                     <button
                       type="button"
                       onClick={() =>
                         setMobileSolutionsOpen(!mobileSolutionsOpen)
                       }
-                      className="flex w-full items-center justify-between py-2 font-semibold uppercase tracking-wider text-gray-800"
+                      className="flex w-full items-center justify-between font-semibold text-sm text-gray-800 px-1"
                     >
                       <span>{link.label}</span>
                       <ChevronDown
                         className={cn(
-                          "size-4 transition-transform duration-200",
-                          mobileSolutionsOpen && "rotate-180",
+                          "size-4 text-gray-500 transition-transform duration-200",
+                          mobileSolutionsOpen && "rotate-180 text-blue-600",
                         )}
                       />
                     </button>
 
                     {mobileSolutionsOpen && (
-                      <div className="mt-1 pl-3 space-y-2 border-l-2 border-gray-100">
+                      <div className="mt-2 space-y-2 pt-2 border-t border-gray-200/60">
                         {solutionDropdownItems.map((item) => {
                           const IconComponent = item.icon;
                           return (
@@ -210,10 +211,19 @@ export function Header() {
                               key={item.title}
                               href={item.href}
                               onClick={() => setIsMobileMenuOpen(false)}
-                              className="flex items-center gap-2.5 text-sm font-medium text-gray-700 hover:text-black py-1.5"
+                              className="flex items-center gap-3 rounded-lg p-2 hover:bg-white text-gray-700 hover:text-gray-900 transition-colors"
                             >
-                              <IconComponent className="size-4 text-blue-600 stroke-[2.2]" />
-                              <span>{item.title}</span>
+                              <div className="flex size-7 items-center justify-center rounded-md bg-blue-50 text-blue-600">
+                                <IconComponent className="size-3.5 stroke-[2.2]" />
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xs font-semibold">
+                                  {item.title}
+                                </div>
+                                <div className="text-[10px] text-gray-500">
+                                  {item.description}
+                                </div>
+                              </div>
                             </Link>
                           );
                         })}
@@ -228,22 +238,28 @@ export function Header() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block border-b border-gray-50 py-2.5 text-sm font-semibold uppercase tracking-wider text-gray-800 hover:text-black"
+                  className="block rounded-xl px-3.5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100/80 hover:text-gray-900 transition-colors"
                 >
                   {link.label}
                 </Link>
               );
             })}
-
-            {/* Mobile Action Buttons */}
-            <div className="pt-2 flex flex-col gap-2">
-              <Button variant="black" className="w-full">
+          </div>
+          <div className="mt-4 pt-3 border-t border-gray-100 flex flex-col gap-2">
+            <Link href="#signin" className="w-full">
+              <Button
+                size="xl"
+                variant="outline"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 Sign In
               </Button>
-              <Button variant="white" className="w-full">
+            </Link>
+            <Link href="#join" className="w-full">
+              <Button size="xl" onClick={() => setIsMobileMenuOpen(false)}>
                 Join Now
               </Button>
-            </div>
+            </Link>
           </div>
         </div>
       )}
