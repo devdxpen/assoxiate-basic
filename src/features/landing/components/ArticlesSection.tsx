@@ -54,7 +54,7 @@ export function ArticlesSection() {
             <Heading
               align="start"
               as="h2"
-              paragraph="Stay updated with the latest trends, insights, tips, and professional development content."
+              paragraph="Read the Latest Industry Insights & Expert Articles"
               className="mb-4"
             />
           </div>

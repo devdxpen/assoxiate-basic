@@ -47,7 +47,7 @@ const steps = [
 					<h4 className="h5">Discover Opportunities</h4>
 				</div>
 				<p className="mb-6">
-					Our AI-powered engine surfaces relevant jobs, projects, and connections tailored to your
+					Our AI-powered engine surfaces relevant jobs, projects, and Assoxiates tailored to your
 					expertise and career goals.
 				</p>
 				<div className="space-y-3">
@@ -129,7 +129,7 @@ const steps = [
 						</div>
 						<div>
 							<p className="h6 font-bold">180</p>
-							<p className="text-base text-gray-700">Connections</p>
+							<p className="text-base text-gray-700">Assoxiates</p>
 						</div>
 						<div>
 							<p className="h6 font-bold">47</p>

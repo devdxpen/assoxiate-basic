@@ -80,12 +80,12 @@ function CategoryCard({ name, count, icon }: CategoryCardProps) {
   return (
     <CardContainer
       containerClassName="h-full"
-      className="w-[300px] h-full rounded-2xl border border-gray-700 bg-gray-950 p-6"
+      className="w-[300px] h-full rounded-2xl border border-gray-700 bg-gray-900 p-6"
     >
       <CardBody className="flex h-full items-center gap-4">
         <CardItem
           translateZ={30}
-          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-gray-700 bg-black"
+          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-gray-700 bg-gray-950"
         >
           <div className="flex h-8 w-8 items-center justify-center text-white">
             {icon}
@@ -104,7 +104,7 @@ function CategoryCard({ name, count, icon }: CategoryCardProps) {
 export function JobsSection() {
   return (
     <section id="jobs" className="py-20 overflow-hidden container-custom ">
-      <div className="bg-black p-20 rounded-2xl overflow-hidden">
+      <div className="bg-gray-950 p-20 rounded-2xl overflow-hidden">
         <div className=" mb-12  flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <Heading
