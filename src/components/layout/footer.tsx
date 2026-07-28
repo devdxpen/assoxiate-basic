@@ -156,7 +156,7 @@ export function Footer() {
                 <input
                   type="text"
                   readOnly
-                  value="https://assoxiate.com/app/ajancjncskcmpkcc/cac,acmoa"
+                  value="https://www.apple.com/in/app-store/"
                   className="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 px-12 text-gray-300 text-sm focus:outline-none focus:border-gray-500 transition-colors"
                 />
                 <button
@@ -177,7 +177,7 @@ export function Footer() {
                 <input
                   type="text"
                   readOnly
-                  value="https://assoxiate.com/app/ajancjncskcmpkcc/cac,acmoa"
+                  value="https://play.google.com/store/games?hl=en_IN"
                   className="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 px-12 text-gray-300 text-sm focus:outline-none focus:border-gray-500 transition-colors"
                 />
                 <button

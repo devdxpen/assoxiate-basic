@@ -79,7 +79,7 @@ export function Header() {
 
   return (
     <header className="fixed w-full top-0 z-50 transition-all duration-300 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-8 mx-auto container-custom">
-      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/70 backdrop-blur-md">
+      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/80 backdrop-blur-md">
         <div className="flex items-center gap-6">
           <BrandMark
             logo="light"
@@ -102,7 +102,7 @@ export function Header() {
                     className={cn(
                       "group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900 focus:outline-none cursor-pointer",
                       isSolutionsOpen &&
-                        "bg-gray-100 text-gray-900 font-semibold",
+                      "bg-gray-100 text-gray-900 font-semibold",
                     )}
                   >
                     <span>{link.label}</span>
@@ -125,7 +125,7 @@ export function Header() {
                               onClick={() => setIsSolutionsOpen(false)}
                             />
                           }
-                          className="flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-gray-700 hover:text-black hover:bg-gray-100/80 rounded-md cursor-pointer transition-colors"
+                          className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:text-black hover:bg-gray-100/80 rounded-md cursor-pointer transition-colors"
                         >
                           <IconComponent className="size-4 text-blue-600 stroke-[2.2]" />
                           <span>{item.title}</span>

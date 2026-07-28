@@ -24,8 +24,8 @@ export const Counter = ({
 	const [prevStart, setPrevStart] = useState(start);
 	const [prevEnd, setPrevEnd] = useState(end);
 	const [value, setValue] = useState(end <= start ? end : start);
-	const effectiveFontSize = fontSize || 32;
-	const height = effectiveFontSize + 10;
+	const effectiveFontSize = fontSize || 36;
+	const height = Math.round(effectiveFontSize * 1.3);
 
 	if (start !== prevStart || end !== prevEnd) {
 		setPrevStart(start);
@@ -59,12 +59,13 @@ export const Counter = ({
 	return (
 		<div
 			style={{
-				...(fontSize ? { fontSize } : {}),
+				fontSize: effectiveFontSize,
 				height,
+				...rest.style,
 			}}
 			{...rest}
 			className={cn(
-				"h2 flex overflow-hidden rounded px-2 leading-none text-white font-bold",
+				"flex overflow-hidden text-white font-bold leading-none items-center",
 				className,
 			)}
 		>
@@ -112,7 +113,7 @@ function Number({ mv, number, height }: { mv: MotionValue; number: number; heigh
 	return (
 		<motion.span
 			style={{ y }}
-			className="absolute inset-0 flex items-center justify-center h2 text-white"
+			className="absolute inset-0 flex items-center justify-center text-white font-bold"
 		>
 			{number}
 		</motion.span>

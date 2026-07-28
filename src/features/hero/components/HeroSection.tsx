@@ -50,8 +50,8 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black text-white flex items-center pt-20">
-      <div className="relative min-h-screen flex items-center z-10 container-custom py-16 lg:py-0">
+    <section className="relative min-h-screen overflow-hidden bg-black text-white flex items-center pt-28 pb-8">
+      <div className="relative flex items-center z-10 container-custom py-16 lg:py-0">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-12 items-center w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -63,14 +63,14 @@ export function HeroSection() {
               icon={Sparkles}
               text="AI Powered Professional Platform"
               iconClassName="text-blue-500"
-              textClassName="text-gray-500"
+              textClassName="text-gray-400"
             />
 
             <h1 className="h2 text-white">
               One Platform Endless Opportunities
             </h1>
 
-            <p className="mt-6">
+            <p className="mt-6 text-gray-400">
               A dynamic platform where professionals find opportunities, promote
               their skills, services and jobs, and grow through valuable
               connections.
@@ -90,18 +90,19 @@ export function HeroSection() {
             >
               {HERO_STATS.map((stat, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-white flex items-center h2">
+                  <span className="text-white flex items-center text-3xl sm:text-4xl font-bold tracking-tight">
                     {statsVisible ? (
                       <Counter
                         end={stat.end}
                         duration={2}
+                        fontSize={36}
                         className="bg-transparent text-white px-0"
                       />
                     ) : (
-                      <span className="h2 text-white">0</span>
+                      <span className="text-white font-bold">0</span>
                     )}
-                    <span className="text-white h2">{stat.suffix}</span>
-                    <span className="text-blue-400 ml-0.5 h2">+</span>
+                    <span className="text-white font-bold">{stat.suffix}</span>
+                    <span className="text-blue-400 ml-0.5 font-bold">+</span>
                   </span>
                   <span className="mt-1.5 text-xs font-medium tracking-wider uppercase text-gray-400">
                     {stat.label}
