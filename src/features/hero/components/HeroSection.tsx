@@ -101,7 +101,7 @@ export function HeroSection() {
                     ) : (
                       <span className="text-white font-bold">0</span>
                     )}
-                    <span className="text-white font-bold">{stat.suffix}</span>
+                    <span className="text-white font-bold text-[36px]">{stat.suffix}</span>
                     <span className="text-blue-400 ml-0.5 font-bold">+</span>
                   </span>
                   <span className="mt-1.5 text-xs font-medium tracking-wider uppercase text-gray-400">

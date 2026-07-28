@@ -79,7 +79,7 @@ export function Header() {
 
   return (
     <header className="fixed w-full top-0 z-50 transition-all duration-300 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-8 mx-auto container-custom">
-      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/80 backdrop-blur-md">
+      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/90 backdrop-blur-md">
         <div className="flex items-center gap-6">
           <BrandMark
             logo="light"
