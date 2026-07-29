@@ -28,7 +28,7 @@ const steps = [
 					</div>
 					<div className="rounded-xl border border-gray-100 bg-gray-50 p-4">
 						<p>Verified Badge</p>
-						<p className="mt-1 text-base">
+						<p className="mt-1 text-base text-gray-700">
 							Get verified to boost credibility and trust within the network.
 						</p>
 					</div>
@@ -144,7 +144,7 @@ const steps = [
 
 export function ProfessionalsSection() {
 	return (
-		<section id="associates" className="relative overflow-hidden bg-white py-20 lg:py-28">
+		<section id="associates" className="relative overflow-hidden bg-white mb-20 lg:mb-28">
 			<div className="container-custom relative z-10">
 				<Heading
 					align="center"

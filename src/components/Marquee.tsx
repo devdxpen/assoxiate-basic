@@ -24,7 +24,7 @@ export function Marquee({
 	maxTimeScale = 6,
 	wheelGain = 1 / 30,
 	touchGain = 1 / 30,
-	gapPx = 12,
+	gapPx = 24,
 	...props
 }: MarqueeProps) {
 	const trackRef = React.useRef<HTMLDivElement | null>(null);

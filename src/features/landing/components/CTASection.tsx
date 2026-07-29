@@ -9,7 +9,7 @@ import { Heading } from "@/components/animation/Heading";
 
 export function CTASection() {
   return (
-    <AnimatedSection className="relative overflow-hidden bg-white py-20 lg:py-28">
+    <AnimatedSection className="relative overflow-hidden bg-white mb-20 lg:mb-28">
       <div className="container-custom">
         <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-gray-50 shadow-md">
           <div className="absolute inset-0 pointer-events-none opacity-20 z-0">

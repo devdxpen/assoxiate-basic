@@ -73,7 +73,7 @@ export function NetworkBanner() {
   const ICON_CLASS = "size-6 text-gray-700";
 
   return (
-    <AnimatedSection className="relative overflow-hidden py-20 lg:py-28">
+    <AnimatedSection className="relative overflow-hidden mb-20 lg:mb-28">
       <div className="container-custom">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Left — Text Content */}

@@ -36,7 +36,7 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <div className="relative overflow-hidden bg-black py-20 lg:py-28">
+    <div className="relative overflow-hidden bg-black py-20 lg:py-28 mb-20 lg:mb-28">
       <div className="container-custom">
         <Heading
           align="start"

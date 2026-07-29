@@ -112,7 +112,7 @@ function SingleNetworkNode({ data, index }: NodeProps) {
 
               <Avatar
                 size="xl"
-                className="relative size-10 sm:size-11 ring-1 ring-white/10"
+                className="relative size-10 sm:size-11"
               >
                 {data.avatarUrl && (
                   <AvatarImage
@@ -133,7 +133,7 @@ function SingleNetworkNode({ data, index }: NodeProps) {
                   <BadgeIconComponent className="size-4 text-neutral-300" />
                 </AvatarFallback>
                 <div
-                  className={`absolute -bottom-1 -right-1 p-2 rounded-full bg-black shadow-sm`}
+                  className={`absolute -bottom-1 -right-1 p-2 rounded-full bg-black`}
                 >
                   <BadgeIconComponent className="size-2.5 sm:size-3" />
                 </div>

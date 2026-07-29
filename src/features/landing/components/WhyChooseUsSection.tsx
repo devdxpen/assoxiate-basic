@@ -68,7 +68,7 @@ export function WhyChooseUsSection() {
   return (
     <AnimatedSection
       id="solutions"
-      className="relative overflow-hidden py-20 lg:py-28"
+      className="relative overflow-hidden pb-20 lg:pb-28"
     >
       <div className="container-custom relative z-10">
         <Heading
@@ -85,7 +85,7 @@ export function WhyChooseUsSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="group relative h-full border border-white/60 bg-white/40 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-7 flex flex-col justify-start gap-0 rounded-2xl hover:bg-white/60 transition-colors duration-300"
+              className="relative h-full flex flex-col justify-start gap-0 rounded-2xl p-7 bg-white/30 backdrop-blur-2xl backdrop-saturate-150 border border-white/50 shadow-lg"
             >
               <GlowingEffect
                 spread={40}

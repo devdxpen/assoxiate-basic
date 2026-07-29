@@ -43,7 +43,7 @@ export function ArticlesSection() {
   return (
     <AnimatedSection
       id="articles"
-      className="relative overflow-hidden bg-white py-20 lg:py-28"
+      className="relative overflow-hidden bg-white mb-20 lg:mb-28"
     >
       <div className="container-custom">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
