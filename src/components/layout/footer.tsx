@@ -10,9 +10,6 @@ import {
   IconBrandLinkedin,
   IconMail,
   IconPhone,
-  IconBrandGooglePlay,
-  IconBrandApple,
-  IconExternalLink,
 } from "@tabler/icons-react";
 
 const socialLinks = [
@@ -60,26 +57,7 @@ const policyLinks = [
   { label: "Brand Policy", href: "#" },
 ];
 
-const appBadges = [
-  {
-    icon: <IconBrandApple className="size-6 text-white shrink-0" />,
-    label: "Download",
-    sublabel: "for iOS",
-    href: "#",
-  },
-  {
-    icon: <IconBrandGooglePlay className="size-6 text-white shrink-0" />,
-    label: "Download",
-    sublabel: "for Android",
-    href: "#",
-  },
-];
-
 export function Footer() {
-  const handleOpenLink = () => {
-    window.open("https://assoxiate.com/app", "_blank");
-  };
-
   return (
     <footer className="bg-gray-950 border-t border-gray-700 pt-8">
       <div className="container-custom">
@@ -147,47 +125,35 @@ export function Footer() {
               <Image src="qu-code.svg" alt="QR Code" width={120} height={120} />
             </div>
 
-            <div className="w-full">
-              <label className="text-sm text-gray-400 mb-2 block font-medium">
-                Apple Store
-              </label>
-              <div className="relative flex items-center w-full">
-                <IconBrandApple className="size-4 absolute left-4 text-gray-400" />
-                <input
-                  type="text"
-                  readOnly
-                  value="https://www.apple.com/in/app-store/"
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 px-12 text-gray-300 text-sm focus:outline-none focus:border-gray-500 transition-colors"
+            <div className="flex flex-col gap-3">
+              <Link
+                href="https://www.apple.com/in/app-store/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block transition-transform hover:scale-105"
+              >
+                <Image
+                  src="/app-store.svg"
+                  alt="Download on the App Store"
+                  width={160}
+                  height={48}
+                  className="h-12 w-auto"
                 />
-                <button
-                  onClick={handleOpenLink}
-                  className="absolute right-1.5 text-gray-400 hover:text-white transition-colors p-1.5 bg-gray-800 rounded-lg hover:bg-gray-700"
-                  title="Open Link"
-                >
-                  <IconExternalLink className="size-4" />
-                </button>
-              </div>
-            </div>
-            <div className="w-full">
-              <label className="text-sm text-gray-400 mb-2 block font-medium">
-                Google PlayStore
-              </label>
-              <div className="relative flex items-center w-full">
-                <IconBrandGooglePlay className="size-4 absolute left-4 text-gray-400" />
-                <input
-                  type="text"
-                  readOnly
-                  value="https://play.google.com/store/games?hl=en_IN"
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 px-12 text-gray-300 text-sm focus:outline-none focus:border-gray-500 transition-colors"
+              </Link>
+              <Link
+                href="https://play.google.com/store/games?hl=en_IN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block transition-transform hover:scale-105"
+              >
+                <Image
+                  src="/play-store.svg"
+                  alt="Get it on Google Play"
+                  width={160}
+                  height={48}
+                  className="h-12 w-auto"
                 />
-                <button
-                  onClick={handleOpenLink}
-                  className="absolute right-1.5 text-gray-400 hover:text-white transition-colors p-1.5 bg-gray-800 rounded-lg hover:bg-gray-700"
-                  title="Open Link"
-                >
-                  <IconExternalLink className="size-4" />
-                </button>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
