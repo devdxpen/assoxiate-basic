@@ -120,7 +120,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-6">
             <Image src="qu-code.svg" alt="QR Code" width={120} height={120} />
 
             <div className="flex gap-3">
