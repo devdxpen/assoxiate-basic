@@ -66,7 +66,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on desktop resize
+  // Close mobile menu on desktop resizedada
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
