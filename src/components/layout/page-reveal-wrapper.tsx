@@ -12,7 +12,7 @@ export function PageLoaderWrapper() {
     setShowLoader(true);
     const t = setTimeout(() => {
       setShowLoader(false);
-    }, 1400);
+    }, 1200);
 
     return () => clearTimeout(t);
   }, [pathname]);
