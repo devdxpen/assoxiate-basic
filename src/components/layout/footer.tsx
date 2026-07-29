@@ -121,11 +121,9 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="flex size-24 shrink-0 items-center justify-center rounded-lg bg-gray-900 p-1.5 shadow-sm border border-gray-700">
-              <Image src="qu-code.svg" alt="QR Code" width={120} height={120} />
-            </div>
+            <Image src="qu-code.svg" alt="QR Code" width={120} height={120} />
 
-            <div className="flex flex-col gap-3">
+            <div className="flex gap-3">
               <Link
                 href="https://www.apple.com/in/app-store/"
                 target="_blank"
