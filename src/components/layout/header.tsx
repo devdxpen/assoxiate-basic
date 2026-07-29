@@ -79,7 +79,7 @@ export function Header() {
 
   return (
     <header className="fixed w-full top-0 z-50 transition-all duration-300 pt-3 sm:pt-4 px-4 sm:px-6 lg:px-8 mx-auto container-custom">
-      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/90 backdrop-blur-md">
+      <div className="flex mx-auto items-center justify-between rounded-2xl p-4 border border-gray-200/60 bg-white/60 backdrop-blur-md shadow-md">
         <div className="flex items-center gap-6">
           <BrandMark
             logo="light"
@@ -88,7 +88,7 @@ export function Header() {
         </div>
         <nav
           aria-label="Main Navigation"
-          className="hidden items-center gap-1 text-sm font-medium text-gray-600 lg:flex"
+          className="hidden items-center gap-1 text-lg font-regular text-gray-600 lg:flex"
         >
           {navLinks.map((link) => {
             if (link.hasDropdown) {
@@ -100,7 +100,7 @@ export function Header() {
                 >
                   <DropdownMenuTrigger
                     className={cn(
-                      "group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900 focus:outline-none cursor-pointer",
+                      "group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-lg font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900 focus:outline-none cursor-pointer",
                       isSolutionsOpen &&
                       "bg-gray-100 text-gray-900 font-semibold",
                     )}
@@ -108,7 +108,7 @@ export function Header() {
                     <span>{link.label}</span>
                     <ChevronDown
                       className={cn(
-                        "size-4 text-gray-400 transition-transform duration-200 group-hover:text-gray-700",
+                        "size-4 text-gray-500 transition-transform duration-200 group-hover:text-gray-700",
                         isSolutionsOpen && "rotate-180 text-gray-900",
                       )}
                     />
@@ -127,7 +127,7 @@ export function Header() {
                           }
                           className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:text-black hover:bg-gray-100/80 rounded-md cursor-pointer transition-colors"
                         >
-                          <IconComponent className="size-4 text-blue-600 stroke-[2.2]" />
+                          <IconComponent className="size-4 text-blue-400 stroke-[2.2]" />
                           <span>{item.title}</span>
                         </DropdownMenuItem>
                       );

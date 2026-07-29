@@ -56,7 +56,7 @@ const sampleArcs = [
 
 const globeConfig: GlobeConfig = {
   pointSize: 1,
-  globeColor: "#101828",
+  globeColor: "#ffffffff",
   showAtmosphere: true,
   atmosphereColor: "#d1d5db",
   atmosphereAltitude: 0.15,

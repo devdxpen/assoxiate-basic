@@ -2,154 +2,99 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-interface PageLoaderProps {
-  show: boolean;
-}
+const RIPPLE_COUNT = 5;
+const rippleDelays = [0, 0.2, 0.4, 0.6, 0.8];
+const rippleInsets = ["37.5%", "30%", "20%", "10%", "0%"];
+const rippleBorderOpacities = [1, 0.8, 0.6, 0.4, 0.2];
+const rippleZIndexes = [99, 98, 97, 96, 95];
 
-type LoaderPhase = "active" | "settling" | "moving" | "done";
-
-// 5 concentric rings via box-shadow: white, black, white, black, white
-// Center is transparent — page visible through the hole
-const RING_WIDTH = 200;
-
-export function PageLoader({ show }: PageLoaderProps) {
-  const [phase, setPhase] = useState<LoaderPhase>("active");
-  const [isVisible, setIsVisible] = useState(show);
-  const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
-  const hasStartedExit = useRef(false);
+export function PageLoader() {
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const calcTarget = () => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const iconSize = 64;
-
-      const targetTop = 28;
-      const targetLeft = 272;
-
-      const centerX = vw / 2 - iconSize / 2;
-      const centerY = vh / 2 - iconSize / 2;
-
-      setTargetPosition({
-        x: targetLeft - centerX,
-        y: targetTop - centerY,
-      });
+    const handleLoad = () => {
+      setTimeout(() => setIsLoading(false), 1800);
     };
 
-    calcTarget();
-    window.addEventListener("resize", calcTarget);
-    return () => window.removeEventListener("resize", calcTarget);
-  }, []);
-
-  useEffect(() => {
-    if (show) {
-      setIsVisible(true);
-      setPhase("active");
-      hasStartedExit.current = false;
-    } else if (isVisible && !hasStartedExit.current) {
-      hasStartedExit.current = true;
-      setPhase("settling");
-
-      const settleTimer = setTimeout(() => {
-        setPhase("moving");
-      }, 400);
-
-      const doneTimer = setTimeout(() => {
-        setPhase("done");
-        setIsVisible(false);
-      }, 1600);
-
-      return () => {
-        clearTimeout(settleTimer);
-        clearTimeout(doneTimer);
-      };
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
     }
-  }, [show, isVisible]);
-
-  const isActive = phase === "active" || phase === "settling";
-  const isExiting = phase === "settling" || phase === "moving";
-
-  // Box-shadow rings: innermost listed first (on top), outermost last
-  // Creates: transparent center → white → black → white → black → white
-  const ringShadows = [
-    `0 0 0 ${RING_WIDTH * 1}px #ffffff`,
-    `0 0 0 ${RING_WIDTH * 2}px #000000`,
-    `0 0 0 ${RING_WIDTH * 3}px #ffffff`,
-    `0 0 0 ${RING_WIDTH * 4}px #000000`,
-    `0 0 0 ${RING_WIDTH * 5 + 1000}px #ffffff`,
-  ].join(", ");
+  }, []);
 
   return (
     <AnimatePresence>
-      {isVisible && (
-        <>
-          {/* Concentric rings — single element with box-shadow */}
-          <div className="fixed inset-0 z-[9998] pointer-events-none flex items-center justify-center">
+      {isLoading && (
+        <motion.div
+          key="page-loader"
+          className="fixed inset-0 z-[999999] flex items-center justify-center bg-black"
+          exit={{
+            opacity: 0,
+            scale: 1.05,
+            filter: "blur(10px)",
+          }}
+          transition={{
+            duration: 0.6,
+            ease: [0.76, 0, 0.24, 1],
+          }}
+        >
+          <div className="relative flex aspect-square h-[520px] items-center justify-center">
             <motion.div
-              className="rounded-full"
-              style={{
-                width: 60,
-                height: 60,
-                backgroundColor: "transparent",
-                boxShadow: ringShadows,
+              className="absolute left-1/2 top-1/2 z-[999] flex h-[80px] w-[80px] -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+              animate={{
+                opacity: [0.7, 1, 0.7],
               }}
-              initial={{ scale: 0 }}
-              animate={
-                isExiting
-                  ? { scale: 25 }
-                  : { scale: [0, 25] }
-              }
-              transition={
-                isExiting
-                  ? {
-                    duration: 1.2,
-                    ease: [0.22, 1, 0.36, 1],
-                  }
-                  : {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeOut",
-                  }
-              }
-            />
-          </div>
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              <Image
+                src="/icon.png"
+                alt="Assxiate Logo"
+                width={80}
+                height={80}
+                className="h-full w-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+                priority
+              />
+            </motion.div>
 
-          {/* Logo */}
-          <motion.div
-            className="fixed z-[9999] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-            animate={
-              phase === "moving"
-                ? {
-                  x: targetPosition.x,
-                  y: targetPosition.y,
-                  scale: 0.55,
-                  opacity: 0,
-                }
-                : { scale: 1, opacity: 1 }
-            }
-            transition={
-              phase === "moving"
-                ? {
-                  x: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-                  y: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-                  scale: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-                  opacity: { duration: 0.3, delay: 0.7, ease: "easeOut" },
-                }
-                : {}
-            }
-          >
-            <Image
-              src="/icon.png"
-              alt="Loading"
-              width={64}
-              height={64}
-              priority
-              className="select-none"
-            />
-          </motion.div>
-        </>
+            {Array.from({ length: RIPPLE_COUNT }).map((_, i) => (
+              <motion.div
+                key={`ripple-${rippleZIndexes[i]}`}
+                className="absolute rounded-full border-t backdrop-blur-[5px]"
+                style={{
+                  inset: rippleInsets[i],
+                  zIndex: rippleZIndexes[i],
+                  borderColor: `rgba(100, 100, 100, ${rippleBorderOpacities[i]})`,
+                  background:
+                    "linear-gradient(0deg, rgba(50, 50, 50, 0.2) 0%, rgba(100, 100, 100, 0.2) 100%)",
+                  boxShadow: "rgba(0, 0, 0, 0.3) 0 10px 10px 0",
+                  aspectRatio: "1 / 1",
+                }}
+                animate={{
+                  scale: [1, 1.5, 1],
+                  boxShadow: [
+                    "rgba(0, 0, 0, 0.3) 0 10px 10px 0",
+                    "rgba(0, 0, 0, 0.3) 0 30px 20px 0",
+                    "rgba(0, 0, 0, 0.3) 0 10px 10px 0",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "easeInOut",
+                  delay: rippleDelays[i],
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

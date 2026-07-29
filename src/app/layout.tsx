@@ -3,8 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { SmoothScroll } from "@/components/animation/SmoothScroll";
+import { PageLoader } from "@/components/ui/page-loader";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { PageLoaderWrapper } from "@/components/layout/page-reveal-wrapper";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} typography relative`}>
-        <PageLoaderWrapper />
+        <PageLoader />
         <TooltipProvider>
           <SmoothScroll />
           {children}

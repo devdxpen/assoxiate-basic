@@ -50,7 +50,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black text-white flex items-center pt-28 pb-8">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-r from-gray-950 to-gray-700 text-white flex items-center pt-28 pb-8">
       <div className="relative flex items-center z-10 container-custom py-16 lg:py-0">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-12 items-center w-full">
           <motion.div
