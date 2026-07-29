@@ -100,9 +100,9 @@ export function Header() {
                 >
                   <DropdownMenuTrigger
                     className={cn(
-                      "group inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-lg font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900 focus:outline-none cursor-pointer",
+                      "group inline-flex text-gray-950 items-center gap-1.5 rounded-full px-4 py-2 text-lg font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900 focus:outline-none cursor-pointer",
                       isSolutionsOpen &&
-                      "bg-gray-100 text-gray-900 font-semibold",
+                      "bg-gray-100",
                     )}
                   >
                     <span>{link.label}</span>
@@ -125,7 +125,7 @@ export function Header() {
                               onClick={() => setIsSolutionsOpen(false)}
                             />
                           }
-                          className="flex items-center gap-2.5 px-3 py-2 text-sm font-medium text-gray-700 hover:text-black hover:bg-gray-100/80 rounded-md cursor-pointer transition-colors"
+                          className="flex items-center gap-2.5 px-3 py-2 text-lg font-medium text-gray-950 hover:text-black hover:bg-gray-100/80 rounded-md cursor-pointer transition-colors"
                         >
                           <IconComponent className="size-4 text-blue-400 stroke-[2.2]" />
                           <span>{item.title}</span>
@@ -141,7 +141,7 @@ export function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="rounded-full px-4 py-2 transition-all hover:bg-gray-100/80 hover:text-gray-900"
+                className="rounded-full px-4 py-2 text-gray-950 font-medium transition-all hover:bg-gray-100/80 hover:text-gray-900"
               >
                 {link.label}
               </Link>
